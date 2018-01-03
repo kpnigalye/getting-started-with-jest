@@ -24,7 +24,8 @@ const UserSchema = mongoose.Schema({
     type: String,
     required:true
   },
-  isDeleted:Boolean
+  isAdmin:Boolean,
+  isDeleted:Boolean  
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

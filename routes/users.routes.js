@@ -8,16 +8,17 @@ const UserModel = require('../models/user.model');
 
 // Register
 router.post('/register', (req, res, next) => {
-  let newUser = new User({
+  let newUser = new UserModel({
     name: req.body.name,
     email: req.body.email,
     phoneNumber: req.body.phoneNumber,
     birthDate: req.body.birthDate,
     password: req.body.password,
-    isDeleted: false
+    isDeleted: false,
+    isAdmin: false
   });
 
-  User.addUser(newUser, (err, user) => {
+  UserModel.addUser(newUser, (err, user) => {
     if (err) {
       res.json({ success: false, msg: err });
     } else {

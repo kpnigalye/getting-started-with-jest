@@ -9,19 +9,25 @@
     <div class="navbar-collapse collapse" id="navbar">
       <ul class="navbar-nav mr-auto navbar-left">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
+          <a class="nav-link" *ngIf = "authService.loggedIn()" [routerLink]="['/dashboard']">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/signup']">Add New Student</a>
+          <a class="nav-link" *ngIf = "authService.loggedIn()" [routerLink]="['/signup']">Add New Student</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/studentslisting']">List Students</a>
-          </li>
+          <a class="nav-link" *ngIf = "authService.loggedIn()" [routerLink]="['/studentslisting']">List Students</a>
+        </li>
       </ul>
 
       <ul class="navbar-nav mr-auto navbar-right">
         <li class="nav-item">
-          <a class="nav-link" (click)="logout()">Logout</a>
+          <a class="nav-link" *ngIf = "authService.loggedIn()" [routerLink]="['/userprofile']">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" *ngIf = "!authService.loggedIn()" [routerLink]="['/login']">Login</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf = "authService.loggedIn()" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>

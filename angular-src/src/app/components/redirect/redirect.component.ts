@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-redirect',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RedirectComponent implements OnInit {
 
-  constructor() { }
+  message:string;
+
+  constructor(
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.message = this.route.snapshot.params['message'];
   }
 
 }

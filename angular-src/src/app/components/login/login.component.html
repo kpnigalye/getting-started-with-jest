@@ -2,8 +2,8 @@
   {{error}}
 </div>
 
-<form class="form-signin" ngNativeValidate (submit)="onLoginSubmit()">
-  <h2 class="form-signin-heading">Sign in</h2>
+<form class="form-signin" ngNativeValidate>
+  <h2 class="form-signin-heading">Login</h2>
   <hr/>
 
   <label for="inputEmail" class="sr-only">Email address</label>
@@ -16,5 +16,5 @@
   <input type="password" id="inputPassword" class="form-control" name="password" [(ngModel)]="password" placeholder="Password"
     required>
   <br/>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <button class="btn btn-lg btn-primary btn-block" type="button" (click)="onLoginSubmit()">Sign in</button>
 </form>

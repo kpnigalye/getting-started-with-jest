@@ -5,6 +5,7 @@ import { StudentService } from '../../services/student.service';
 
 import { settings } from "../../../environments/settings";
 import { AuthService } from '../../services/auth.service';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-add-student',
@@ -36,6 +37,7 @@ export class AddStudentComponent implements OnInit {
   totalFees?: number;
   concession?: number;
   expectedDateOfCompletion?: Date;
+  error:string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +55,7 @@ export class AddStudentComponent implements OnInit {
     //get student name
     this.authService.getUserProfileById(this.userId).subscribe(data => {
       this.name = data.user.name;
+      this.contactNumber1 = data.user.phoneNumber;
       console.log("getUserProfileById: " + this.name);
     });
   }
@@ -63,9 +66,10 @@ export class AddStudentComponent implements OnInit {
     console.log("onAddStudentSubmit");
 
     let newlyAddedStudent = {
+      userId: this.userId,
+      name: this.name,
       category: this.category,
       stream: this.stream,
-      name: name,
       address: this.address,
       classSession: this.classSession,
       branch: this.branch,
@@ -78,7 +82,6 @@ export class AddStudentComponent implements OnInit {
       },
       contactDetails: this.addContactDetails(),
       isDeleted: false,
-      userId: this.userId,
       // add current year
       currentYear: settings.currentYear
     }
@@ -89,6 +92,21 @@ export class AddStudentComponent implements OnInit {
     if (this.checkIfScienceStream())
       this.addScienceRelatedFields(newlyAddedStudent);
 
+/*  Add student record to students collection
+    Add payment record to payments collection
+    Redirect to Add Payment screen
+ */
+
+    this.studentsService.addNewStudent(newlyAddedStudent).subscribe(data => {
+      if (data.success) {
+
+
+
+        this.router.navigate(['addPayment/'+ data.user._id]);    // change this to payment id
+      } else {
+        this.error = data.msg._message;
+      }
+    });
 
   }
 

@@ -7,7 +7,7 @@ const config = require('../config/database');
 const UserModel = require('../models/user.model');
 
 // Register
-router.post('/register', (req, res, next) => {
+router.post('/registerUser', (req, res, next) => {
   let newUser = new UserModel({
     name: req.body.name,
     email: req.body.email,
@@ -22,7 +22,7 @@ router.post('/register', (req, res, next) => {
     if (err) {
       res.json({ success: false, msg: err });
     } else {
-      res.json({ success: true, msg: 'User registered' });
+      res.json({ success: true, data: user, msg: 'User registered' });
     }
   });
 });
@@ -70,6 +70,16 @@ router.post('/authenticate', (req, res, next) => {
 // Profile
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res, next) => {
   res.send({ user: req.user });
+});
+
+// Get User profile by Id
+router.get('/getUserProfileById', (req, res, next) => {
+  console.log("router: getUserProfileById : " + JSON.stringify(req.query));
+  UserModel.getUserById(req.query.userId, (err, user) => {
+    if (err) throw err;
+    console.log(user);
+    res.send({ user: user });
+  });
 });
 
 module.exports = router;

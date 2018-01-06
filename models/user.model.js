@@ -31,6 +31,8 @@ const UserSchema = mongoose.Schema({
 const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.getUserById = function(id, callback){
+  console.log("model.getUserById-"+ id);
+  
   User.findById(id, callback);
 }
 
@@ -43,6 +45,7 @@ module.exports.addUser = function(newUser, callback){
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newUser.password, salt, (err, hash) => {
       if(err) throw err;
+      console.log(newUser);
       newUser.password = hash;
       newUser.save(callback);
     });

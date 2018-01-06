@@ -5,7 +5,9 @@ import { StudentService } from '../../services/student.service';
 
 import { settings } from "../../../environments/settings";
 import { AuthService } from '../../services/auth.service';
-import { DashboardComponent } from '../dashboard/dashboard.component';
+import { PaymentService } from '../../services/payment.service';
+import { FeesdetailsService } from '../../services/feesdetails.service';
+
 
 @Component({
   selector: 'app-add-student',
@@ -15,6 +17,7 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 export class AddStudentComponent implements OnInit {
 
   studentId: string;
+  feesDetailsId: string;
   userId?: string;
   name?: string;
   address?: string;
@@ -37,14 +40,16 @@ export class AddStudentComponent implements OnInit {
   totalFees?: number;
   concession?: number;
   expectedDateOfCompletion?: Date;
-  error:string = "";
+  error: string = "";
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private usersService: UsersService,
     private authService: AuthService,
-    private studentsService: StudentService
+    private studentsService: StudentService,
+    private paymentService: PaymentService,
+    private feesdetailsService: FeesdetailsService
   ) { }
 
   ngOnInit() {
@@ -92,27 +97,75 @@ export class AddStudentComponent implements OnInit {
     if (this.checkIfScienceStream())
       this.addScienceRelatedFields(newlyAddedStudent);
 
-/*  Add student record to students collection
-    Add payment record to payments collection
-    Redirect to Add Payment screen
- */
+    /*  Add student record to students collection
+        Add payment record to payments collection
+        Redirect to Add Payment screen
+     */
 
-    this.studentsService.addNewStudent(newlyAddedStudent).subscribe(data => {
-      if (data.success) {
+    this.studentsService.addNewStudent(newlyAddedStudent).subscribe(studentData => {
+      if (studentData.success) {
+        this.studentId = studentData.student._id;
 
-
-
-        this.router.navigate(['addPayment/'+ data.user._id]);    // change this to payment id
-      } else {
-        this.error = data.msg._message;
+        this.feesdetailsService.addNewFeesdetails(this.createFeesDetailsObj()).subscribe(feesData => {
+          if (feesData.success) {
+            this.feesDetailsId = feesData.feesDetails._id;
+            this.paymentService.addNewPayment(this.createPaymentDetailsObj()).subscribe(paymentData => {
+              if (paymentData.success) {
+                let paymentDetailId = paymentData.payment._id;
+                this.router.navigate(['addPayment', paymentDetailId]);
+              } else {
+                this.error = paymentData.msg._message;
+              }
+            });
+          } else {
+            this.error = feesData.msg._message;
+          }
+        });
+      }
+      else {
+        this.error = studentData.msg._message;
       }
     });
-
   }
 
   /******************* 
   / Helper functions
   *******************/
+
+  createFeesDetailsObj() {
+    return {
+      studentId: this.studentId,
+      feesDetailsId: this.feesDetailsId,
+      totalFees: this.totalFees,
+      concession: this.concession,
+      totalFeesToPay: Number(this.totalFees) - Number(this.concession),
+      expectedDateOfCompletion: this.expectedDateOfCompletion,
+      isDeleted: false
+    }
+  }
+
+  createPaymentDetailsObj() {
+    return {
+      studentId: this.studentId,
+      feesDetailsId: this.feesDetailsId,
+      studentName: this.name,   /* studentName */
+      stream: this.stream,
+      enrolledFor: this.enrolledFor,
+      receiptNumber: 0,
+      isPaid: false,
+      paymentDate: "",
+      amount: 0,
+      modeOfPayment: "",
+      bankName: "",
+      branch: "",
+      chequeDate: new Date(),
+      chequeNumber: "",
+      remark: "",
+      createdAt: new Date(),
+      isDeleted: false
+    }
+  }
+
 
   addContactDetails() {
     let contactDetails = [];
@@ -158,7 +211,7 @@ export class AddStudentComponent implements OnInit {
     else
       newlyAddedStudent.isCombinedAdmission = (this.enrolledFor == "IX + X");
 
-    if (!newlyAddedStudent.isCombinedAdmission){
+    if (!newlyAddedStudent.isCombinedAdmission) {
       // if not combined admission, set currentStandard same as enrolledFor
       newlyAddedStudent.currentStandard = this.enrolledFor;
     }

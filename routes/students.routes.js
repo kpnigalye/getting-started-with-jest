@@ -8,13 +8,12 @@ const StudentModel = require('../models/student.model');
 // Register
 router.post('/addNewStudent', (req, res, next) => {
   let newUser = new StudentModel(req.body);
-  console.log(newUser);
 
-  StudentModel.addNewStudent(newUser, (err, user) => {
+  StudentModel.addNewStudent(newUser, (err, student) => {
     if (err) {
       res.json({ success: false, msg: err });
     } else {
-      res.json({ success: true, msg: 'Student registered', user: user });
+      res.json({ success: true, msg: 'Student registered', student: student });
     }
   });
 });

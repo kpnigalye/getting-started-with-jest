@@ -6,9 +6,9 @@
   <!-- *ngIf="!(afAuth.authState | async)" -->
 
   <div>
-    <button class="btn btn-info" routerLink="/login" id="email">Login With Email</button>
+    <button class="btn btn-info" *ngIf = "!authService.loggedIn()" routerLink="/login" id="email">Login With Email</button>
     <br/>
     <br/>
   </div>
-  <button class="btn btn-primary" routerLink="/dashboard">Go to Dashboard</button>
+  <button class="btn btn-primary" *ngIf = "authService.loggedIn()" routerLink="/dashboard">Go to Dashboard</button>
 </div>

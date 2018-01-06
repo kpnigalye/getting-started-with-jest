@@ -22,11 +22,11 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { AuthService } from "./services/auth.service";
 import { UsersService } from "./services/users.service";
 import { ValidateService } from "./services/validate.service";
-
-
+import { PaymentService } from "./services/payment.service";
+import { StudentService } from './services/student.service';
+import { FeesdetailsService } from './services/feesdetails.service';
 
 import { AuthGuard } from './guards/auth.guard';
-import { StudentService } from './services/student.service';
 
 const appRoutes: Routes = [
   { pathMatch: 'full', path: '', component: HomeComponent },
@@ -66,7 +66,15 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [AuthGuard, AuthService, ValidateService, UsersService, StudentService],
+  providers: [
+    AuthGuard,
+    AuthService,
+    ValidateService,
+    UsersService,
+    StudentService,
+    PaymentService,
+    FeesdetailsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

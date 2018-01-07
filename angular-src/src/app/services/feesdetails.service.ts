@@ -18,7 +18,6 @@ export class FeesdetailsService {
       .map(res => res.json());
   }
 
-
   // Get Fees Details by Id
   getFeesDetailsById(feesDetailId){
     let params: URLSearchParams  = new URLSearchParams();
@@ -28,7 +27,16 @@ export class FeesdetailsService {
       .map(res => res.json());
   }
 
+  // Get Fees Details by StudentId
+  getFeesDetailsByStudentId(studentId){
+    let params: URLSearchParams  = new URLSearchParams();
+    params.set("studentId", studentId);
 
+    return this.http.get('http://localhost:3000/feesdetails/getFeesDetailsByStudentId', { headers: this.setHeaders(), params: params })
+      .map(res => res.json());
+  }
+
+  // Update fees details
   updateFeesDetails(fees){
     return this.http.post('http://localhost:3000/feesdetails/updateFeesDetails', fees, {headers: this.setHeaders()})
       .map(res => res.json());

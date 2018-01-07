@@ -47,6 +47,11 @@ module.exports.getPaymentRecordById = function (id, callback) {
     Payment.findById(id, callback);
 }
 
+module.exports.getPaymentRecordByStudentId = function (studentId, callback) {
+    console.log("model.getPaymentRecordById-" + studentId);
+    Payment.find({studentId : studentId}, callback);
+}
+
 module.exports.addNewPayment = function (newPayment, callback) {
     console.log("addNewPayment: from model")
     newPayment.save(callback);

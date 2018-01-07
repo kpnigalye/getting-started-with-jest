@@ -23,7 +23,6 @@ router.post('/addNewPayment', (req, res, next) => {
 router.post('/updatePaymentDetails', (req, res, next) => {
   let paymentDetailsToUpdate = new PaymentModel(req.body);
   console.log("router: updatePaymentDetails");
-  console.log(paymentDetailsToUpdate._id);
 
   PaymentModel.updatePaymentDetails(paymentDetailsToUpdate, (err, payment) => {
       if (err) {
@@ -34,16 +33,22 @@ router.post('/updatePaymentDetails', (req, res, next) => {
   });
 });
 
-
 // Get Payment by Id
 router.get('/getPaymentById', (req, res, next) => {
-    console.log("router: getPaymentById : " + JSON.stringify(req.query));
     PaymentModel.getPaymentRecordById(req.query.paymentId, (err, payment) => {
       if (err) throw err;
-      console.log(payment);
-      res.send({ payment: payment });
+      res.send({ success: true, payment: payment });
     });
   });
+
+  // Get Payment by StudentId
+router.get('/getPaymentRecordByStudentId', (req, res, next) => {
+  PaymentModel.getPaymentRecordByStudentId(req.query.studentId, (err, paymentDetails) => {
+    if (err) throw err;
+    res.send({ success: true, paymentDetails: paymentDetails });
+  });
+});
+  
 
 
 module.exports = router;

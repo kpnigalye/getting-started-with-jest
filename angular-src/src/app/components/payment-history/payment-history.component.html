@@ -1,3 +1,49 @@
-<p>
-  payment-history works!
-</p>
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a [routerLink]="['/dashboard']">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a [routerLink]="['/studentprofile/'+ studentId ]">Student Profile</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Payment Details</li>
+  </ol>
+</nav>
+
+<div class="row" *ngIf="paymentInfo">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header active">
+        <h5>Payment Receipt</h5>
+      </div>
+      <div class="card-block">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <strong>Received with thanks from: </strong> {{ paymentInfo.studentName }}</li>
+          <li class="list-group-item">
+            <strong>Date of Payment: </strong> {{ paymentInfo.paymentDate }}</li>
+          <li class="list-group-item">
+            <strong>Sum of rupees: </strong> Rs.{{ paymentInfo.amount }}</li>
+          <li class="list-group-item">
+            <strong>Receipt Number: </strong> {{ paymentInfo.receiptNumber }}</li>
+          <li class="list-group-item">
+            <strong>By: </strong> {{ paymentInfo.modeOfPayment }}</li>
+          <li class="list-group-item" *ngIf="paymentInfo.modeOfPayment == 'Cheque'">
+            <strong>Bank: </strong> {{ paymentInfo.bankName }}
+            <br/>
+            <strong>Branch: </strong> {{ paymentInfo.branch }}
+            <br/>
+            <strong>Cheque Number: </strong> {{ paymentInfo.chequeNumber }}
+            <br/>
+            <strong>Cheque Dated: </strong> {{ paymentInfo.chequeDate }}
+            <br/>
+            <strong *ngIf="paymentInfo.isChequeCleared">Cheque Clearance Date: </strong> {{ paymentInfo.chequeClearanceDate }}
+          </li>
+          <li class="list-group-item">
+            <strong>Remark:</strong> {{ paymentInfo.remark }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

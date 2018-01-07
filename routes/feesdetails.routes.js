@@ -23,7 +23,6 @@ router.post('/updateFeesDetails', (req, res, next) => {
     let feesDetailsToUpdate = new FeesDetailsModel(req.body);
 
     console.log("router: updateFeesDetails");
-    console.log(feesDetailsToUpdate);
 
     FeesDetailsModel.updateFeesDetails(feesDetailsToUpdate, (err, feesDetails) => {
         if (err) {
@@ -37,12 +36,19 @@ router.post('/updateFeesDetails', (req, res, next) => {
 
 // Get FeesDetail by Id
 router.get('/getFeesDetailsById', (req, res, next) => {
-    console.log("router: getFeesDetailsById : " + JSON.stringify(req.query));
     FeesDetailsModel.getFeesDetailsById(req.query.feesDetailId, (err, feesDetails) => {
         if (err) throw err;
-        console.log(feesDetails);
-        res.send({ feesDetails: feesDetails });
+        res.send({ success: true, feesDetails: feesDetails });
     });
 });
+
+// Get FeesDetail by StudentId
+router.get('/getFeesDetailsByStudentId', (req, res, next) => {
+    FeesDetailsModel.getFeesDetailsByStudentId(req.query.studentId, (err, feesDetails) => {
+        if (err) throw err;
+        res.send({ success: true, feesDetails: feesDetails });
+    });
+});
+
 
 module.exports = router;

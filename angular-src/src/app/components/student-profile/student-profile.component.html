@@ -1,3 +1,196 @@
-<p>
-  student-profile works!
-</p>
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a [routerLink]="['/dashboard']">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Student Profile</li>
+  </ol>
+</nav>
+
+<div class="row" *ngIf="student">
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <h3>
+      <strong> {{student.name}} </strong>
+    </h3>
+    <hr/>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        <h5>Basic Information</h5>
+      </div>
+      <div class="card-block">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <strong>Studying in:</strong> {{ student.currentStandard }}
+            <small>({{ student.stream }})</small>/ {{ student.course }}</li>
+          <li class="list-group-item">
+            <strong>Enrolled For:</strong> {{ student.enrolledFor }}</li>
+          <li class="list-group-item" *ngIf="student.hasEnrolledForEntrance">
+            <strong>Entrance:</strong> {{ student.entrance }}</li>
+        </ul>
+
+        <div class="card-footer text-muted">
+          <a class="btn btn-primary" [routerLink]="['/updatestudent/'+ student._id]">Edit</a>
+          <!-- <a class="btn btn-danger" href="#">Delete</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-8">
+    <div class="card">
+      <div class="card-header">
+        <h5>Other Information</h5>
+      </div>
+      <div class="card-block">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <strong>Branch:</strong> {{ student.branch }}, {{ student.classSession }} batch</li>
+          <li class="list-group-item">
+            <strong>College:</strong> {{ student.instituteInfo.name }}</li>
+          <li class="list-group-item">
+            <strong>College Timing:</strong> {{ student.instituteInfo.timing }}</li>
+          <li class="list-group-item">
+            <strong>Address:</strong> {{ student.address }}</li>
+          <li class="list-group-item" *ngIf="student.contactDetails">
+            <strong>Contact Details:</strong>
+            <div *ngFor="let number of student.contactDetails">
+              <span class="glyphicon glyphicon-phone"></span> {{ number }}</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<!-- <form class="bd-callout bd-callout-blue" *ngIf="addState || editState">
+  <fieldset>
+    <legend *ngIf="addState">Add Installment</legend>
+    <legend *ngIf="editState">Edit Installment</legend>
+    <hr/>
+    <div class="form-row">
+      <div class="col">
+        <label for="installment-amt" class="col-form-label"></label>
+        Amount:
+        <input type="number" class="form-control" id="installment-amt" name="amount" [(ngModel)]="amount" #installmentForm>
+      </div>
+      <div class="col">
+        <label for="message-text" class="col-form-label"></label>
+        Due Date:
+        <input type="date" class="form-control" id="installment-dueDate" name="paymentDate" [(ngModel)]="paymentDate">
+      </div>
+    </div>
+    <br/>
+    <button type="button" class="btn btn-primary" *ngIf="addState" (click)="addInstallment()">Add Installment</button>
+    <button type="button" class="btn btn-primary" *ngIf="editState" (click)="updateInstallmentDetails()">Update</button>
+    <button type="button" class="btn btn-primary" (click)="closeInstallmentForm()">Close</button>
+  </fieldset>
+</form> -->
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="addState">Add Installment</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="editState">Edit Installment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Form to add/edit installment -->
+        <form *ngIf="addState || editState">
+            <div class="form-row">
+              <div class="col-12">
+                <label for="installment-amt" class="col-form-label">Amount:</label>
+                <input type="number" class="form-control" id="installment-amt" name="amount" [(ngModel)]="amount">
+              </div>
+              <div class="col-12">
+                <label for="message-text" class="col-form-label">Due Date:</label>
+                <input type="date" class="form-control" id="installment-dueDate" name="paymentDate" [(ngModel)]="paymentDate">
+              </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" *ngIf="addState" (click)="addInstallment()">Add Installment</button>
+        <button type="button" class="btn btn-primary" *ngIf="editState" (click)="updateInstallmentDetails()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row" *ngIf="student && fees">
+  <div class="col-sm-12 col-md-12 col-lg-4">
+    <div class="card">
+      <div class="card-header">
+        <h5>Payment Details</h5>
+      </div>
+      <div class="card-block">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <!-- total fees to pay -->
+            <strong>Total Fees:</strong>Rs. {{ fees.totalFeesToPay }}</li>
+          <li class="list-group-item">
+            <strong>Concession: </strong>Rs. {{ fees.concession }}</li>
+          <li class="list-group-item">
+            <strong>Total Paid Fees:</strong>Rs. {{ fees.totalPaidFees }}</li>
+          <li class="list-group-item">
+            <strong>Balance Installment Amount:
+              <br>
+            </strong>Rs. {{ balanceInstallmentAmount }}</li>
+        </ul>
+      </div>
+
+      <div class="card-footer">
+        <h4 *ngIf="!fees.isPaid" style="color:red">Balance Fees:
+          <strong> Rs. {{ fees.totalFees - fees.totalPaidFees - fees.concession }}</strong>
+        </h4>
+        <h3 *ngIf="fees.isPaid" style="color:green">Full Paid</h3>
+        <button type="button" data-toggle="modal" data-target="#exampleModal" *ngIf="showAddInstallmentbtn" class="btn btn-info"
+          (click)="changeAddState()">Add Installment</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-8">
+    <div class="card">
+      <div class="card-header">
+        <h5>Fees Details</h5>
+      </div>
+      <div class="card-block">
+        <table class="table table-hover" *ngIf="paymentHistory">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Due Date</th>
+              <th scope="col">Remark</th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let inst of paymentHistory; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ inst.amount }}</td>
+              <td>{{ inst.paymentDate | date:'dd-MM-yyyy' }}</td>
+              <td>
+                <strong *ngIf="inst.isPaid" style="color:green">R.No.{{ inst.receiptNumber }} (Paid)</strong>
+                <strong *ngIf="!inst.isPaid" style="color:red">Not Paid</strong>
+              </td>
+              <td>
+                <button class="button btn-primary" *ngIf="inst.isPaid" [routerLink]="['/paymenthistory/'+ inst._id]">Show Payment History</button>
+                <button class="button btn-info" *ngIf="!inst.isPaid" (click)="changeEditState(inst,i)" data-toggle="modal" data-target="#exampleModal">Edit</button>
+                <button class="button btn-success" *ngIf="!inst.isPaid" [routerLink]="['/addPayment/'+ inst._id]">Make Payment</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

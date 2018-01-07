@@ -34,6 +34,11 @@ module.exports.getFeesDetailsById = function (id, callback) {
     FeesDetail.findById(id, callback);
 }
 
+module.exports.getFeesDetailsByStudentId = function (studentId, callback) {
+    console.log("model.getFeesDetailsByStudentId-" + studentId);
+    FeesDetail.findOne({ studentId : studentId}, callback);
+}
+
 module.exports.addNewFeesDetails = function (newFeesDetail, callback) {
     console.log("addNewFeeDetail: from model")
     newFeesDetail.save(callback);

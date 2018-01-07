@@ -139,8 +139,8 @@ export class AddStudentComponent implements OnInit {
       totalFees: this.totalFees,
       concession: this.concession,
       totalFeesToPay: Number(this.totalFees) - Number(this.concession),
-      totalPaidFees : 0,
-      totalInstallmentAmount : 0,
+      totalPaidFees: 0,
+      totalInstallmentAmount: 0,
       expectedDateOfCompletion: this.expectedDateOfCompletion,
       isDeleted: false
     }

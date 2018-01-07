@@ -63,16 +63,18 @@ const StudentSchema = mongoose.Schema({
 
 const Student = module.exports = mongoose.model('Student', StudentSchema);
 
-module.exports.getStudentByUserId = function (userId, callback) {
-
-}
-
-module.exports.getStudentById = function (id, callback) {
-
+module.exports.getStudentDetailsById = function (id, callback) {
+    console.log("model.getStudentDetailsById - " + id);
+    Student.findById(id, callback);
 }
 
 module.exports.addNewStudent = function (newStudent, callback) {
     console.log("addNewStudent: from model")
     newStudent.save(callback);
+}
+
+module.exports.updateStudentInfo = function (userToUpdate, callback) {
+    console.log("model.updateStudentInfo - " + userToUpdate._id);
+    Student.findByIdAndUpdate(userToUpdate._id, userToUpdate, { upsert: true }, callback);
 }
 

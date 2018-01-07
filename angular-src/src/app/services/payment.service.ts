@@ -11,6 +11,22 @@ export class PaymentService {
     private http: Http
   ) { }
 
+  showBalanceFeesOnDashboard(){
+    let params: URLSearchParams = new URLSearchParams();
+    params.set("isPaid", "false");
+
+    return this.http.get('http://localhost:3000/payments/showBalanceFeesOnDashboard', { headers: this.setHeaders(), params : params })
+      .map(res => res.json());
+  }
+
+  showPendingChequeEntries(){
+    let params: URLSearchParams = new URLSearchParams();
+    params.set("isChequeCleared", "false");
+
+    return this.http.get('http://localhost:3000/payments/showPendingChequeEntries', { headers: this.setHeaders(), params : params })
+      .map(res => res.json());
+  }
+
   // Add New Payment
   addNewPayment(payment) {
     return this.http.post('http://localhost:3000/payments/addNewPayment', payment, { headers: this.setHeaders() })

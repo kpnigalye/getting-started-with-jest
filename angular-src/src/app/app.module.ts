@@ -27,6 +27,7 @@ import { StudentService } from './services/student.service';
 import { FeesdetailsService } from './services/feesdetails.service';
 
 import { AuthGuard } from './guards/auth.guard';
+import { SortGridPipe } from '../app/pipes/SortGridPipe';
 
 const appRoutes: Routes = [
   { pathMatch: 'full', path: '', component: HomeComponent },
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    SortGridPipe,
     NavbarComponent,
     HomeComponent,
     DashboardComponent,

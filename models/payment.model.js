@@ -42,6 +42,16 @@ const PaymentSchema = mongoose.Schema({
 
 const Payment = module.exports = mongoose.model('Payment', PaymentSchema);
 
+module.exports.showBalanceFeesOnDashboard = function (isPaid, callback) {
+    console.log("model.showBalanceFeesOnDashboard");
+    Payment.find({isPaid : isPaid}, callback);
+}
+
+module.exports.showPendingChequeEntries = function (isChequeCleared, callback) {
+    console.log("model.showPendingChequeEntries");
+    Payment.find({isChequeCleared : isChequeCleared}, callback);
+}
+
 module.exports.getPaymentRecordById = function (id, callback) {
     console.log("model.getPaymentRecordById-" + id);
     Payment.findById(id, callback);

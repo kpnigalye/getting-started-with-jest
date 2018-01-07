@@ -18,11 +18,27 @@ router.post('/addNewFeesDetails', (req, res, next) => {
     });
 });
 
+// Update FeesDetail record
+router.post('/updateFeesDetails', (req, res, next) => {
+    let feesDetailsToUpdate = new FeesDetailsModel(req.body);
+
+    console.log("router: updateFeesDetails");
+    console.log(feesDetailsToUpdate);
+
+    FeesDetailsModel.updateFeesDetails(feesDetailsToUpdate, (err, feesDetails) => {
+        if (err) {
+            res.json({ success: false, msg: err });
+        } else {
+            res.json({ success: true, msg: 'FeesDetails record updated', feesDetails: feesDetails });
+        }
+    });
+});
+
 
 // Get FeesDetail by Id
-router.get('/getFeesDetailById', (req, res, next) => {
-    console.log("router: getFeesDetailById : " + JSON.stringify(req.query));
-    FeesDetailsModel.getFeesDetailById(req.query.feesDetailsId, (err, feesDetails) => {
+router.get('/getFeesDetailsById', (req, res, next) => {
+    console.log("router: getFeesDetailsById : " + JSON.stringify(req.query));
+    FeesDetailsModel.getFeesDetailsById(req.query.feesDetailId, (err, feesDetails) => {
         if (err) throw err;
         console.log(feesDetails);
         res.send({ feesDetails: feesDetails });

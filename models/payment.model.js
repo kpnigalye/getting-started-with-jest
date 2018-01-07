@@ -24,7 +24,7 @@ const PaymentSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    idPaid: Boolean,
+    isPaid: Boolean,
     amount: Number,
     receiptNumber: Number,
     paymentDate: String,
@@ -44,7 +44,6 @@ const Payment = module.exports = mongoose.model('Payment', PaymentSchema);
 
 module.exports.getPaymentRecordById = function (id, callback) {
     console.log("model.getPaymentRecordById-" + id);
-
     Payment.findById(id, callback);
 }
 
@@ -53,3 +52,8 @@ module.exports.addNewPayment = function (newPayment, callback) {
     newPayment.save(callback);
 }
 
+module.exports.updatePaymentDetails = function (paymentDetailToUpdate, callback) {
+    console.log("updatePaymentDetails: from model")
+    // paymentDetailToUpdate.update(callback);
+    Payment.findByIdAndUpdate(paymentDetailToUpdate._id, paymentDetailToUpdate, {upsert:true}, callback);
+}

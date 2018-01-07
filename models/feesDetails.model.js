@@ -13,7 +13,7 @@ const FeesDetailSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    concession:{
+    concession: {
         type: Number,
         required: true
     },
@@ -29,13 +29,18 @@ const FeesDetailSchema = mongoose.Schema({
 
 const FeesDetail = module.exports = mongoose.model('FeesDetail', FeesDetailSchema);
 
-module.exports.getFeesDetailById = function (id, callback) {
-    console.log("model.getFeesDetailById-" + id);
+module.exports.getFeesDetailsById = function (id, callback) {
+    console.log("model.getFeesDetailsById-" + id);
     FeesDetail.findById(id, callback);
 }
 
 module.exports.addNewFeesDetails = function (newFeesDetail, callback) {
     console.log("addNewFeeDetail: from model")
     newFeesDetail.save(callback);
+}
+
+module.exports.updateFeesDetails = function (feesDetailToUpdate, callback) {
+    console.log("updateFeesDetails: from model")
+    FeesDetail.findByIdAndUpdate(feesDetailToUpdate._id, feesDetailToUpdate, { upsert: true }, callback);
 }
 

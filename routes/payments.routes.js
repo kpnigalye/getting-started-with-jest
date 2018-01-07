@@ -19,16 +19,31 @@ router.post('/addNewPayment', (req, res, next) => {
 });
 
 
+// Update Payment record
+router.post('/updatePaymentDetails', (req, res, next) => {
+  let paymentDetailsToUpdate = new PaymentModel(req.body);
+  console.log("router: updatePaymentDetails");
+  console.log(paymentDetailsToUpdate._id);
+
+  PaymentModel.updatePaymentDetails(paymentDetailsToUpdate, (err, payment) => {
+      if (err) {
+          res.json({ success: false, msg: err });
+      } else {
+          res.json({ success: true, msg: 'Payment Details updated', payment: payment });
+      }
+  });
+});
+
+
 // Get Payment by Id
-router.get('/getPaymentRecordById', (req, res, next) => {
-    console.log("router: getPaymentRecordById : " + JSON.stringify(req.query));
-    PaymentModel.getPaymentRecordById(req.query.paymentId, (err, user) => {
+router.get('/getPaymentById', (req, res, next) => {
+    console.log("router: getPaymentById : " + JSON.stringify(req.query));
+    PaymentModel.getPaymentRecordById(req.query.paymentId, (err, payment) => {
       if (err) throw err;
-      console.log(user);
-      res.send({ user: user });
+      console.log(payment);
+      res.send({ payment: payment });
     });
   });
-
 
 
 module.exports = router;

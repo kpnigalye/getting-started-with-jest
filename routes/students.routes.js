@@ -41,7 +41,29 @@ router.get('/getStudentDetailsById', (req, res, next) => {
   });
 });
 
+// Search School section students By Parameters
+router.get('/searchSchoolSectionStudents', (req, res, next) => {
+  console.log(req.query);
+  StudentModel.searchSchoolSectionStudents(req.query, (err, students) => {
+    if (err) {
+      res.json({ success: false, msg: err });
+    } else {
+      res.json({ success: true, students: students });
+    }
+  });
+});
 
+// Search School section students By Parameters
+router.get('/searchCollegeSectionStudents', (req, res, next) => {
+  console.log(req.query);
+  StudentModel.searchCollegeSectionStudents(req.query, (err, students) => {
+    if (err) {
+      res.json({ success: false, msg: err });
+    } else {
+      res.json({ success: true, students: students });
+    }
+  });
+});
 
 
 module.exports = router;

@@ -35,6 +35,7 @@ const StudentSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    // for school section : English , Marathi, Semi
     // for category = college section 
     // science, commerce, arts
     stream: {
@@ -78,3 +79,21 @@ module.exports.updateStudentInfo = function (userToUpdate, callback) {
     Student.findByIdAndUpdate(userToUpdate._id, userToUpdate, { upsert: true }, callback);
 }
 
+module.exports.searchSchoolSectionStudents = function (params, callback) {
+    console.log("model.searchSchoolSectionStudents - " + params);
+    Student.find({
+        "stream": params.stream, "stream": params.stream,
+        "currentStandard": params.enrolledFor, "category": params.category,
+        "course": params.course, "classSession": params.classSession
+    }
+        , callback);
+}
+
+module.exports.searchCollegeSectionStudents = function (params, callback) {
+    console.log("model.searchCollegeSectionStudents - " + params);
+    Student.find({
+        "stream": params.stream, "stream": params.stream, "currentStandard": params.enrolledFor, "category": params.category,
+        "course": params.course, "classSession": params.classSession, "offeredSubjects": params.offeredSubjects
+    }
+        , callback);
+}

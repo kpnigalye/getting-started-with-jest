@@ -1,0 +1,11 @@
+#filter-form{
+    max-width: 500px;
+    padding: 25px;
+    margin: 0px auto;
+    border: 2px solid #c0eefe;
+    border-style: groove;
+}
+
+.search-results{
+    border: 1px solid rgba(0, 0, 0, 0.125)
+}

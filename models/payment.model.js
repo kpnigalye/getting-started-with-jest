@@ -68,7 +68,6 @@ module.exports.addNewPayment = function (newPayment, callback) {
 }
 
 module.exports.updatePaymentDetails = function (paymentDetailToUpdate, callback) {
-    console.log("updatePaymentDetails: from model")
-    // paymentDetailToUpdate.update(callback);
+    console.log("updatePaymentDetails: from model");
     Payment.findByIdAndUpdate(paymentDetailToUpdate._id, paymentDetailToUpdate, {upsert:true}, callback);
 }

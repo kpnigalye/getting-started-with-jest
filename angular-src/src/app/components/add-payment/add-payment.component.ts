@@ -21,7 +21,7 @@ export class AddPaymentComponent implements OnInit {
   receiptNumber?: string;
   modeOfPayment?: string;
   bankName?: string = "";
-  branch?: string = "";
+  bankBranch?: string = "";
   chequeNumber?: string = "";
   chequeDate?: Date;
   remark?: string = "";
@@ -44,7 +44,7 @@ export class AddPaymentComponent implements OnInit {
       this.paymentDate = this.paymentRecord.paymentDate;
       this.modeOfPayment = this.paymentRecord.modeOfPayment;
       this.bankName = this.paymentRecord.bankName;
-      this.branch = this.paymentRecord.branch;
+      this.bankBranch = this.paymentRecord.bankBranch;
       this.chequeDate = this.paymentRecord.chequeDate;
       this.remark = this.paymentRecord.remark;
       this.studentName = this.paymentRecord.studentName;
@@ -64,11 +64,11 @@ export class AddPaymentComponent implements OnInit {
 
   onAddPaymentSubmit() {
     console.log("onAddPaymentSubmit");
-    if (!this.fees.totalPaidFees)        // remove this later
-    {
-      this.fees.totalPaidFees = 0;
-      this.fees.totalInstallmentAmount = 0;
-    }
+    // if (!this.fees.totalPaidFees)        // remove this later
+    // {
+    //   this.fees.totalPaidFees = 0;
+    //   this.fees.totalInstallmentAmount = 0;
+    // }
 
     this.fees.totalPaidFees = Number(this.fees.totalPaidFees) + Number(this.amount);
     this.fees.isPaid = (this.fees.totalPaidFees == this.fees.totalFeesToPay) ? true : false;
@@ -87,7 +87,7 @@ export class AddPaymentComponent implements OnInit {
 
         if (this.isChequePayment()) {
           this.paymentRecord.bankName = this.bankName;
-          this.paymentRecord.branch = this.branch;
+          this.paymentRecord.bankBranch = this.bankBranch;
           this.paymentRecord.chequeDate = this.chequeDate;
           this.paymentRecord.chequeNumber = this.chequeNumber;
           this.paymentRecord.isChequeCleared = (this.paymentRecord.chequeDate == Date.now()) ? true : false
@@ -95,7 +95,7 @@ export class AddPaymentComponent implements OnInit {
         }
 
         this.paymentService.updatePaymentDetails(this.paymentRecord).subscribe(paymentData => {
-          if(paymentData.success)
+          if (paymentData.success)
             this.router.navigate(['studentprofile', this.studentId]);
         });
       }

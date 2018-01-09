@@ -39,8 +39,13 @@ export class LoginComponent implements OnInit {
     else {
       this.authService.authenticateUser(user).subscribe(data => {
         if (data.success) {
-          this.authService.storeUserData(data.token, data.user);
-          this.router.navigate(['dashboard']);
+          if (data.user.isAdmin) {
+            this.error = "Only  Admin users are allowed to login.";
+          }
+          else {
+            this.authService.storeUserData(data.token, data.user);
+            this.router.navigate(['dashboard']);
+          }
         } else {
           this.error = "User record not found. Please check your login credentials";
         }

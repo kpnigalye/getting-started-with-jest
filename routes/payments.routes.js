@@ -9,7 +9,8 @@ const PaymentModel = require('../models/payment.model');
 // Show Balance Fees On Dashboard
 router.get('/showBalanceFeesOnDashboard', (req, res, next) => {
   let isPaid = req.query.isPaid;
-  PaymentModel.showBalanceFeesOnDashboard(isPaid, (err, balanceFees) => {
+  let branch = req.query.branch;
+  PaymentModel.showBalanceFeesOnDashboard(isPaid, branch, (err, balanceFees) => {
     if (err) throw err;
     res.send({ success: true, balanceFees: balanceFees });
   });
@@ -18,7 +19,8 @@ router.get('/showBalanceFeesOnDashboard', (req, res, next) => {
 // Show Pending Cheque Entries
 router.get('/showPendingChequeEntries', (req, res, next) => {
   let isChequeCleared = req.query.isChequeCleared;
-  PaymentModel.showPendingChequeEntries(isChequeCleared, (err, pendingCheques) => {
+  let branch = req.query.branch;
+  PaymentModel.showPendingChequeEntries(isChequeCleared, branch, (err, pendingCheques) => {
     if (err) throw err;
     res.send({ success: true, pendingCheques: pendingCheques });
   });

@@ -1,0 +1,46 @@
+<nav aria-label="breadcrumb" role="navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a [routerLink]="['/dashboard']">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Sign up Student</li>
+  </ol>
+</nav>
+
+<div class="alert alert-dismissible alert-danger" role="alert" *ngIf="error">
+  {{error}}
+</div>
+
+<form ngNativeValidate class="bd-callout  bd-callout-yellow" id="needs-validation" ngNativeValidate>
+  <fieldset>
+    <legend>Sign Up</legend>
+    <hr/>
+
+    <!-- Name -->
+    <div class="row">
+      <div class="form-group col-sm-12 col-md-12 col-lg-12">
+        <label class="col-form-label col-form-label-sm" for="inputSmall">Name</label>
+        <input class="form-control form-control-sm" type="text" id="name" name="name" [(ngModel)]="name" required>
+      </div>
+    </div>
+
+    <!-- Email & birthday  -->
+    <div class="row">
+      <div class="form-group col-sm-12 col-md-4 col-lg-4">
+        <label class="col-form-label col-form-label-sm" for="inputSmall">Phone Number</label>
+        <input class="form-control form-control-sm" type="number" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" required>
+      </div>
+      <div class="form-group col-sm-12 col-md-5 col-lg-5">
+        <label class="col-form-label col-form-label-sm" for="inputSmall">Email Address</label>
+        <input class="form-control form-control-sm" type="email" id="email" name="email" [(ngModel)]="email" required>
+      </div>
+      <div class="form-group col-sm-12 col-md-3 col-lg-3">
+        <label class="col-form-label col-form-label-sm" for="inputSmall">Birth Date</label>
+        <input class="form-control form-control-sm" type="date" id="birthDate" name="birthDate" [(ngModel)]="birthDate" required>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" type="button" (click)="onSignupSubmit()">Sign Up</button>
+
+  </fieldset>
+</form>

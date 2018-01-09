@@ -16,12 +16,18 @@ import { PaymentHistoryComponent } from './components/payment-history/payment-hi
 import { LoginComponent } from './components/login/login.component';
 import { RedirectComponent } from './components/redirect/redirect.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
-
-import { AuthService } from "./services/auth.service";
-import { ValidateService } from "./services/validate.service";
+import { SignupStudentComponent } from './components/signup-student/signup-student.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
+import { AuthService } from "./services/auth.service";
+import { UsersService } from "./services/users.service";
+import { ValidateService } from "./services/validate.service";
+import { PaymentService } from "./services/payment.service";
+import { StudentService } from './services/student.service';
+import { FeesdetailsService } from './services/feesdetails.service';
+
 import { AuthGuard } from './guards/auth.guard';
+import { SortGridPipe } from '../app/pipes/SortGridPipe';
 
 const appRoutes: Routes = [
   { pathMatch: 'full', path: '', component: HomeComponent },
@@ -31,7 +37,7 @@ const appRoutes: Routes = [
   { pathMatch: 'full', path: 'updatestudent/:id', component: UpdateStudentComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'addPayment/:id', component: AddPaymentComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'paymenthistory/:id', component: PaymentHistoryComponent, canActivate: [AuthGuard] },
-  // { pathMatch: 'full', path: 'signup', component: SignupComponent, canActivate: [AuthGuard] },
+  { pathMatch: 'full', path: 'signup', component: SignupStudentComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'login', component: LoginComponent },
   { pathMatch: 'full', path: 'redirect/:message', component: RedirectComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'studentslisting', component: StudentsListingComponent, canActivate: [AuthGuard] },
@@ -41,6 +47,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    SortGridPipe,
     NavbarComponent,
     HomeComponent,
     DashboardComponent,
@@ -52,7 +59,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RedirectComponent,
     StudentProfileComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SignupStudentComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +68,15 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
   ],
-  providers: [AuthGuard, AuthService, ValidateService],
+  providers: [
+    AuthGuard,
+    AuthService,
+    ValidateService,
+    UsersService,
+    StudentService,
+    PaymentService,
+    FeesdetailsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

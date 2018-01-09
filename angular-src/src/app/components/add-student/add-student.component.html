@@ -1,3 +1,320 @@
-<p>
-  add-student works!
-</p>
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/dashboard']">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Add Student</li>
+    </ol>
+  </nav>
+  
+  <form ngNativeValidate class="bd-callout  bd-callout-yellow" id="needs-validation">
+    <fieldset>
+      <legend>Add Student</legend>
+      <hr/>
+  
+      <!-- Name -->
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Name</label>
+          <input class="form-control form-control-sm" type="text" id="inputSmall" name="name" [(ngModel)]="name" required disabled>
+        </div>
+      </div>
+  
+      <!-- Category -->
+      <div class="row">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Category</label>
+        </div>
+        <div class="col-10">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" (click)="unselectAll()" name="category" [(ngModel)]="category" id="categoryRdo"
+                value="School Section" checked> School Section
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" (click)="unselectAll()" name="category" [(ngModel)]="category" id="categoryRdo"
+                value="College Section"> College Section
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Stream If college section -->
+      <div class="row" *ngIf="category == 'School Section'">
+          <div class="col-2">
+            <label class="col-form-label col-form-label-sm" for="inputSmall">Medium</label>
+          </div>
+          <div class="col-10">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="stream" [(ngModel)]="stream" id="engRdo" value="English"> English
+              </label>
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="stream" [(ngModel)]="stream" id="semiRdo" value="Semi-English"> Semi-English
+              </label>
+              <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="stream" [(ngModel)]="stream" id="marRdo" value="Marathi"> Marathi
+                </label>
+            </div>
+          </div>
+        </div>
+  
+      <!-- Stream If college section -->
+      <div class="row" *ngIf="checkIfCollegeSection()">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Stream</label>
+        </div>
+        <div class="col-10">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="stream" [(ngModel)]="stream" id="sciRdo" value="Science"> Science
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="stream" [(ngModel)]="stream" id="comRdo" value="Commerce"> Commerce
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="stream" [(ngModel)]="stream" id="artsRdo" value="Arts"> Arts
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Enrolled for : options specific to school section -->
+      <div class="row" *ngIf="category == 'School Section'">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Enrolled For</label>
+        </div>
+        <div class="col-10">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="viiiRdo" value="VIII"> VIII
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="ixRdo" value="IX"> IX
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="ixAndxRdo" value="IX + X"> IX + X
+            </label>
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xRdo" value="X"> X
+              </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Enrolled for : options specific to College section -->
+      <div class="row" *ngIf="category == 'College Section'">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Enrolled For</label>
+        </div>
+        <div class="col-10">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xiRdo" value="XI"> XI
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xiiRdo" value="XII"> XII
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xiAndxiiRdo" value="XI + XII"> XI + XII
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Enrolled for : options specific to Science stream -->
+      <div class="row" *ngIf="stream == 'Science'">
+        <div class="col-2"></div>
+        <div class="col-10">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="entranceRdo" [(ngModel)]="entrance" id="noneRdo" value="None"> None
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="entranceRdo" [(ngModel)]="entrance" id="medicalEntRdo" value="NEET"> NEET
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="entranceRdo" [(ngModel)]="entrance" id="enggEntRdo" value="MH-CET"> MH-CET
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="entranceRdo" [(ngModel)]="entrance" id="bothEntRdo" value="NEET + MH-CET"> NEET + MH-CET
+            </label>
+          </div>
+        </div>
+      </div>
+  
+  
+      <!-- Subjects specific to Science stream -->
+      <div class="row" *ngIf="stream == 'Science'">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Subjects Offered</label>
+        </div>
+        <div class="col-3">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="pcbRdo" value="PCB"> PCB
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="pcmRdo" value="PCM"> PCM
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="pcmbRdo" value="PCMB"> PCMB
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Subjects specific to Commerce stream -->
+      <div class="row" *ngIf="stream == 'Commerce'">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Subjects Offered</label>
+        </div>
+        <div class="col-8">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="spRdo" value="All subjects with SP"> All subjects with SP
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="mathsRdo" value="All subjects with Maths"> All subjects with Maths
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Subjects specific to Arts stream -->
+      <div class="row" *ngIf="stream == 'Arts'">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Subjects Offered</label>
+        </div>
+        <div class="col-8">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="foursubRdo" value="4 Subjects"> 4 Subjects
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="allsubRdo" value="All Subjects"> All Subjects
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Courses -->
+      <div class="row">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
+        </div>
+        <div class="col-8">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="vacationRdo" value="Vacation"> Vacation
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="regularRdo" value="Regular"> Regular
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Class Session -->
+      <div class="row">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Class Session</label>
+        </div>
+        <div class="col-8">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="morningRdo" value="Morning"> Morning
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="evenRdo" value="Evening"> Evening
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Branches -->
+      <div class="row">
+        <div class="col-2">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
+        </div>
+        <div class="col-8">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="branchRadios" [(ngModel)]="branch" id="branchRdo" value="Chembur"> Chembur
+            </label>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="branchRadios" [(ngModel)]="branch" id="branchRdo" value="Govandi"> Govandi
+            </label>
+            <label class="form-check-label" *ngIf="category == 'School Section'">
+              <input type="radio" class="form-check-input" name="branchRadios" [(ngModel)]="branch" id="branchRdo" value="Mankhurd"> Mankhurd
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Address -->
+      <div class="row">
+        <div class="form-group col-12">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Address</label>
+          <input class="form-control form-control-sm" type="text" id="inputSmall" name="address" [(ngModel)]="address" required>
+        </div>
+      </div>
+  
+      <!-- Institution Information -->
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-9" *ngIf="checkIfCollegeSection()">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Name of the College</label>
+          <input class="form-control form-control-sm" type="text" id="inputSmall" name="instituteName" [(ngModel)]="instituteName"
+            required>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-9" *ngIf="!checkIfCollegeSection()">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Name of the School</label>
+          <input class="form-control form-control-sm" type="text" id="inputSmall" name="instituteName" [(ngModel)]="instituteName"
+            required>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-3">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Timing</label>
+          <input class="form-control form-control-sm" type="text" id="inputSmall" name="instituteTiming" [(ngModel)]="instituteTiming">
+        </div>
+      </div>
+  
+      <!-- Contact Details -->
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-4">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Contact Number 1(Self)</label>
+          <input class="form-control form-control-sm" type="text" id="inputSmall" name="contactNumber1" [(ngModel)]="contactNumber1"
+            required disabled>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-4">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Contact Number 2</label>
+          <input class="form-control form-control-sm" type="text" id="inputSmall" name="contactNumber2" [(ngModel)]="contactNumber2"
+            required>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-4">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Contact Number 3</label>
+          <input class="form-control form-control-sm" type="text" id="inputSmall" name="contactNumber3" [(ngModel)]="contactNumber3">
+        </div>
+      </div>
+  
+      <hr/>
+  
+      <!-- Fees Details -->
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-4">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Total Fees</label>
+          <input class="form-control form-control-sm" type="number" id="inputSmall" name="totalFees" [(ngModel)]="totalFees" required>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-4">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Concession</label>
+          <input class="form-control form-control-sm" type="number" id="inputSmall" name="concession" [(ngModel)]="concession" required>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-4">
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Expected Date of Completion</label>
+          <input class="form-control form-control-sm" type="date" id="inputSmall" name="expectedDateOfCompletion" [(ngModel)]="expectedDateOfCompletion"
+            required>
+        </div>
+      </div>
+      <br />
+      <button type="button" class="btn btn-primary" (click)="onAddStudentSubmit()">Submit</button>
+    </fieldset>
+  </form>

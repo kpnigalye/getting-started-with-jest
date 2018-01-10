@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from "@angular/http";
 import 'rxjs/add/operator/map';
 
+import { environment } from "../../environments/environment";
+
 @Injectable()
 export class FeesdetailsService {
 
@@ -14,7 +16,7 @@ export class FeesdetailsService {
 
   // Add Fees record
   addNewFeesdetails(fees){
-    return this.http.post('http://localhost:3000/feesdetails/addNewFeesdetails', fees, {headers: this.setHeaders()})
+    return this.http.post(environment.feesDetailsUrl.concat('addNewFeesdetails'), fees, {headers: this.setHeaders()})
       .map(res => res.json());
   }
 
@@ -23,7 +25,7 @@ export class FeesdetailsService {
     let params: URLSearchParams  = new URLSearchParams();
     params.set("feesDetailId", feesDetailId);
 
-    return this.http.get('http://localhost:3000/feesdetails/getFeesDetailsById', { headers: this.setHeaders(), params: params })
+    return this.http.get(environment.feesDetailsUrl.concat('getFeesDetailsById'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());
   }
 
@@ -32,13 +34,13 @@ export class FeesdetailsService {
     let params: URLSearchParams  = new URLSearchParams();
     params.set("studentId", studentId);
 
-    return this.http.get('http://localhost:3000/feesdetails/getFeesDetailsByStudentId', { headers: this.setHeaders(), params: params })
+    return this.http.get(environment.feesDetailsUrl.concat('getFeesDetailsByStudentId'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());
   }
 
   // Update fees details
   updateFeesDetails(fees){
-    return this.http.post('http://localhost:3000/feesdetails/updateFeesDetails', fees, {headers: this.setHeaders()})
+    return this.http.post(environment.feesDetailsUrl.concat('updateFeesDetails'), fees, {headers: this.setHeaders()})
       .map(res => res.json());
   }
 

@@ -26,9 +26,14 @@ import { PaymentService } from "./services/payment.service";
 import { StudentService } from './services/student.service';
 import { FeesdetailsService } from './services/feesdetails.service';
 import { AddAdminComponent } from './components/add-admin/add-admin.component';
+import { AddBatchComponent } from './components/add-batch/add-batch.component';
+import { AddFacultyComponent } from './components/add-faculty/add-faculty.component';
+import { AddAcademicYearComponent } from './components/add-academic-year/add-academic-year.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { SortGridPipe } from '../app/pipes/SortGridPipe';
+import { SettingsService } from './services/settings.service';
 
 const appRoutes: Routes = [
   { pathMatch: 'full', path: '', component: HomeComponent },
@@ -43,6 +48,10 @@ const appRoutes: Routes = [
   { pathMatch: 'full', path: 'redirect/:message', component: RedirectComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'studentslisting', component: StudentsListingComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },
+  { pathMatch: 'full', path: 'addbatch', component: AddBatchComponent, canActivate: [AuthGuard] },
+  { pathMatch: 'full', path: 'addfaculty', component: AddFacultyComponent, canActivate: [AuthGuard] },
+  { pathMatch: 'full', path: 'addacademicyear', component: AddAcademicYearComponent, canActivate: [AuthGuard] },
+  { pathMatch: 'full', path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'addadmin', component: AddAdminComponent },
 ]
 
@@ -63,7 +72,11 @@ const appRoutes: Routes = [
     StudentProfileComponent,
     UserProfileComponent,
     SignupStudentComponent,
-    AddAdminComponent
+    AddAdminComponent,
+    AddBatchComponent,
+    AddFacultyComponent,
+    AddAcademicYearComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +91,8 @@ const appRoutes: Routes = [
     UsersService,
     StudentService,
     PaymentService,
-    FeesdetailsService
+    FeesdetailsService,
+    SettingsService
   ],
   bootstrap: [AppComponent]
 })

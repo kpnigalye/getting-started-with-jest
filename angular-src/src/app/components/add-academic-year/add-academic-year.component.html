@@ -1,0 +1,23 @@
+<div class="alert alert-dismissible alert-danger" role="alert" *ngIf="error">
+  {{error}}
+</div>
+
+<form ngNativeValidate class="form-signin" id="needs-validation" (submit)="onAddYearSubmit()">
+  <h2 class="form-signin-heading">Add Batch</h2>
+  <hr/>
+
+  <!-- Academic Year -->
+  <div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+      <label for="exampleSelect1">Academic Year</label>
+      <select class="custom-select" name="selectedYear" [(ngModel)]="selectedYear">
+        <option selected="">Open this select year</option>
+        <option value="2017-18">2017-18</option>
+        <option value="2018-19">2018-19</option>
+      </select>
+    </div>
+  </div>
+
+  <br/>
+  <button class="btn btn-primary" type="submit">Add</button>
+</form>

@@ -3,6 +3,8 @@ import { Http, Headers, URLSearchParams } from "@angular/http";
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from "angular2-jwt";
 
+import { environment } from "../../environments/environment";
+
 @Injectable()
 export class AuthService {
 
@@ -18,7 +20,7 @@ export class AuthService {
   authenticateUser(user) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/authenticate', user, { headers: headers })
+    return this.http.post(environment.usersUrl.concat('authenticate'), user, { headers: headers })
       .map(res => res.json());
   }
 
@@ -27,7 +29,8 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/users/profile', { headers: headers })
+    
+    return this.http.get(environment.usersUrl.concat('profile'), { headers: headers })
       .map(res => res.json());
   }
 
@@ -39,7 +42,7 @@ export class AuthService {
     let params: URLSearchParams  = new URLSearchParams();
     params.set("userId", userId);
 
-    return this.http.get('http://localhost:3000/users/getUserProfileById', { headers: headers, params: params })
+    return this.http.get(environment.usersUrl.concat('getUserProfileById'), { headers: headers, params: params })
       .map(res => res.json());
   }
 
@@ -54,6 +57,7 @@ export class AuthService {
 
   // Fucntion to stire user record in localstorage
   storeUserData(token, user) {
+    // add current year here
     console.log("storeUserData");
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));

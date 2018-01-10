@@ -21,7 +21,6 @@ export class AddStudentComponent implements OnInit {
   userId?: string;
   name?: string;
   address?: string;
-  branch?: string;
   category?: string;
   stream?: string;
   enrolledFor?: string;
@@ -77,7 +76,6 @@ export class AddStudentComponent implements OnInit {
       stream: this.stream,
       address: this.address,
       classSession: this.classSession,
-      branch: this.branch,
       enrolledFor: this.enrolledFor,
       course: this.course,
       offeredSubjects: this.offeredSubjects,
@@ -159,7 +157,6 @@ export class AddStudentComponent implements OnInit {
       amount: 0,
       modeOfPayment: "",
       bankName: "",
-      branch: "",
       chequeDate: new Date(),
       chequeNumber: "",
       remark: "",

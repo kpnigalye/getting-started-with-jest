@@ -8,15 +8,8 @@ const UserModel = require('../models/user.model');
 
 // Register
 router.post('/registerUser', (req, res, next) => {
-  let newUser = new UserModel({
-    name: req.body.name,
-    email: req.body.email,
-    phoneNumber: req.body.phoneNumber,
-    birthDate: req.body.birthDate,
-    password: req.body.password,
-    isDeleted: false,
-    isAdmin: false
-  });
+
+  let newUser = new UserModel(req.body);
 
   UserModel.addUser(newUser, (err, user) => {
     if (err) {
@@ -57,7 +50,8 @@ router.post('/authenticate', (req, res, next) => {
             name: user.name,
             email: user.email,
             phoneNumber: user.phoneNumber,
-            birthDate: user.birthDate
+            birthDate: user.birthDate,
+            branch: user.branch
           }
         });
       } else {

@@ -47,9 +47,10 @@ export class SignupStudentComponent implements OnInit {
         phoneNumber: this.phoneNumber,
         name: this.name,
         password: this.password,
-        userRole: "Student",
+        role: "Student",
         isAdmin: false,
-        isActive: false
+        isActive: false,
+        isDeleted: false
       }
 
       this.usersService.registerUser(newlyAddedUser).subscribe(user => {

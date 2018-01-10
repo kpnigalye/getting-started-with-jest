@@ -14,6 +14,9 @@ export class StudentService {
   // Register 
   // Register new user
   addNewStudent(student) {
+    student.branch = localStorage.getItem('branch');
+    console.log("current branch is for newly added student is " + student.branch);
+
     return this.http.post('http://localhost:3000/students/addNewStudent', student, { headers: this.setHeaders() })
       .map(res => res.json());
   }

@@ -14,6 +14,7 @@ export class PaymentService {
   showBalanceFeesOnDashboard(){
     let params: URLSearchParams = new URLSearchParams();
     params.set("isPaid", "false");
+    params.set("branch", localStorage.getItem('branch'));
 
     return this.http.get('http://localhost:3000/payments/showBalanceFeesOnDashboard', { headers: this.setHeaders(), params : params })
       .map(res => res.json());
@@ -22,6 +23,7 @@ export class PaymentService {
   showPendingChequeEntries(){
     let params: URLSearchParams = new URLSearchParams();
     params.set("isChequeCleared", "false");
+    params.set("branch", localStorage.getItem('branch'));
 
     return this.http.get('http://localhost:3000/payments/showPendingChequeEntries', { headers: this.setHeaders(), params : params })
       .map(res => res.json());
@@ -29,6 +31,8 @@ export class PaymentService {
 
   // Add New Payment
   addNewPayment(payment) {
+    payment.branch = localStorage.getItem('branch');
+
     return this.http.post('http://localhost:3000/payments/addNewPayment', payment, { headers: this.setHeaders() })
       .map(res => res.json());
   }
@@ -65,7 +69,6 @@ export class PaymentService {
 
     return headers;
   }
-
 
   loadToken() {
     const token = localStorage.getItem('id_token');

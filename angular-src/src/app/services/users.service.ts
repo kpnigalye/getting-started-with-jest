@@ -12,6 +12,11 @@ export class UsersService {
   // Register 
   // Register new user
   registerUser(user){
+    if(!user.isAdmin){
+      user.branch = localStorage.getItem('branch');
+      console.log("current branch is for newly added student is " + user.branch);
+    }
+
     let headers = new Headers();
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/registerUser', user, {headers: headers})

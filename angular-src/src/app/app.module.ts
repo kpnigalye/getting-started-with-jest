@@ -25,6 +25,7 @@ import { ValidateService } from "./services/validate.service";
 import { PaymentService } from "./services/payment.service";
 import { StudentService } from './services/student.service';
 import { FeesdetailsService } from './services/feesdetails.service';
+import { AddAdminComponent } from './components/add-admin/add-admin.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { SortGridPipe } from '../app/pipes/SortGridPipe';
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
   { pathMatch: 'full', path: 'redirect/:message', component: RedirectComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'studentslisting', component: StudentsListingComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },
+  { pathMatch: 'full', path: 'addadmin', component: AddAdminComponent },
 ]
 
 @NgModule({
@@ -60,7 +62,8 @@ const appRoutes: Routes = [
     RedirectComponent,
     StudentProfileComponent,
     UserProfileComponent,
-    SignupStudentComponent
+    SignupStudentComponent,
+    AddAdminComponent
   ],
   imports: [
     BrowserModule,

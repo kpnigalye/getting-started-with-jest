@@ -25,6 +25,10 @@ const StudentSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    currentYear :{
+        type: String,
+        required: true
+    },
     isCombinedAdmission: Boolean,
     contactDetails: [],
     offeredSubjects: String,
@@ -92,7 +96,7 @@ module.exports.searchCollegeSectionStudents = function (params, callback) {
     console.log("model.searchCollegeSectionStudents - " + params);
     Student.find({
         "stream": params.stream, "stream": params.stream, "currentStandard": params.enrolledFor, "category": params.category,
-        "course": params.course, "classSession": params.classSession, "offeredSubjects": params.offeredSubjects
+        "course": params.course, "classSession": params.classSession
     }
         , callback);
 }

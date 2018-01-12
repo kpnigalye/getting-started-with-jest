@@ -83,7 +83,7 @@ export class UpdateStudentComponent implements OnInit {
       stream: this.stream,
       branch: this.branch,
       enrolledFor: this.enrolledFor,
-      course: this.course,
+      course: (this.enrolledFor == "X") ? this.course : "Regular",
       offeredSubjects: this.offeredSubjects,
       instituteInfo: {
         name: this.instituteName,
@@ -169,6 +169,10 @@ export class UpdateStudentComponent implements OnInit {
     this.enrolledFor = "";
     this.entrance = "";
     this.offeredSubjects = "";
+  }
+
+  showCourses(){
+    return (this.enrolledFor == "X" || this.enrolledFor == "XII");
   }
 
 }

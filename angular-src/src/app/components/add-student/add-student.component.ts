@@ -25,7 +25,7 @@ export class AddStudentComponent implements OnInit {
   stream?: string;
   enrolledFor?: string;
   entrance?: string;
-  course?: string;
+  course?: string = "Regular";
   offeredSubjects?: string;
   classSession?: string;
   instituteName?: string;
@@ -84,9 +84,7 @@ export class AddStudentComponent implements OnInit {
         timing: this.instituteTiming
       },
       contactDetails: this.addContactDetails(),
-      isDeleted: false,
-      // add current year
-      currentYear: settings.currentYear
+      isDeleted: false
     }
 
     this.setCurrentStandard(newlyAddedStudent);
@@ -228,6 +226,10 @@ export class AddStudentComponent implements OnInit {
     this.enrolledFor = "";
     this.entrance = "";
     this.offeredSubjects = "";
+  }
+
+  showCourses(){
+    return (this.enrolledFor == "X" || this.enrolledFor == "XII");
   }
 
 }

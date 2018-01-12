@@ -13,27 +13,38 @@ export class SettingsService {
     private http: Http
   ) { }
 
-  addBatch(batch){
+  setCurrentYear(yearToUpdate) {
+    return this.http.post(environment.settingsUrl.concat('setCurrentYear'), yearToUpdate, { headers: this.setHeaders() })
+      .map(res => res.json());
+  }
+
+  getCurrentYear() {
+    return this.http.get(environment.settingsUrl.concat('getCurrentYear'), { headers: this.setHeaders() })
+      .map(res => res.json());
+  }
+
+  addBatch(batch) {
     batch.branch = localStorage.getItem('branch');
+    console.log(batch);
 
     return this.http.post(environment.settingsUrl.concat('addBatch'), batch, { headers: this.setHeaders() })
       .map(res => res.json());
   }
 
-  addAcademicYear(academicYear){
+  addAcademicYear(academicYear) {
     return this.http.post(environment.settingsUrl.concat('addAcademicYear'), academicYear, { headers: this.setHeaders() })
       .map(res => res.json());
   }
 
-  listBatches(){
+  listBatches() {
     let params: URLSearchParams = new URLSearchParams();
     params.set("branch", localStorage.getItem('branch'));
 
-    return this.http.get(environment.settingsUrl.concat('listBatches'), { headers: this.setHeaders(), params : params })
+    return this.http.get(environment.settingsUrl.concat('listBatches'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());
   }
 
-  listAcademicYears(){
+  listAcademicYears() {
     return this.http.get(environment.settingsUrl.concat('listAcademicYears'), { headers: this.setHeaders() })
       .map(res => res.json());
   }

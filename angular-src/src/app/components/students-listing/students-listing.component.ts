@@ -8,8 +8,7 @@ import { StudentService } from "../../services/student.service";
 })
 export class StudentsListingComponent implements OnInit {
 
-  branch;
-  course;
+  course: string = "Regular";
   classSession;
   category;
   stream;
@@ -59,13 +58,15 @@ export class StudentsListingComponent implements OnInit {
     this.enrolledFor = "";
     this.entrance = "";
     this.offeredSubjects = "";
+    this.classSession = "";
+    this.course = "Regular";
   }
 
   listStudents(category, stream) {
     console.log("from liststudents");
 
     if (stream == "English" || stream == "Semi-English" || stream == "Marathi") {
-      this.studentService.searchSchoolSectionStudents(this.branch, category, stream, this.enrolledFor, this.course, this.classSession).subscribe(studentsData => {
+      this.studentService.searchSchoolSectionStudents(category, stream, this.enrolledFor, this.course, this.classSession).subscribe(studentsData => {
         if (studentsData.success) {
           this.students = studentsData.students;
           if (stream == "English")
@@ -77,20 +78,21 @@ export class StudentsListingComponent implements OnInit {
         }
       });
     }
+  }
 
-    if (category == "College Section" && stream != "Science") {
-      this.studentService.searchCollegeSectionStudents(
-        this.branch, category, stream, this.enrolledFor,
-        this.course, this.classSession, this.offeredSubjects
-      ).subscribe(studentsData => {
-        if (studentsData.success) {
-          if (stream == "Commerce")
-            this.commerceSectionData = studentsData.students;
-          if (stream == "Arts")
-            this.artsSectionData = studentsData.students;
-        }
-      });
-    }
+  listScienceStudents(enrolledFor, course, classSession) {
+    console.log("from listScienceStudents");
+
+    this.studentService.searchCollegeSectionStudents("College Section", "Science", enrolledFor, course, classSession).subscribe(studentsData => {
+      if (studentsData.success) {
+        this.scienceSectionData = studentsData.students;
+      }
+    });
+
+  }
+
+  showCourses() {
+    return (this.enrolledFor == "X" || this.enrolledFor == "XII");
   }
 
   // listScienceStreamStudents(branch, category, course, classSession){

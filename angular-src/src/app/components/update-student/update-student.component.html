@@ -98,6 +98,9 @@
           <label class="form-check-label">
             <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="ixAndxRdo" value="IX + X"> IX + X
           </label>
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xRdo" value="X"> X
+          </label>
         </div>
       </div>
     </div>
@@ -199,7 +202,7 @@
     </div>
 
     <!-- Courses -->
-    <div class="row">
+    <div class="row" *ngIf="showCourses()">
       <div class="col-2">
         <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
       </div>
@@ -276,6 +279,6 @@
       </div>
     </div>
     <br/>
-    <button type="button" class="btn btn-primary" (click) = "onUpdateSubmit()">Submit</button>
+    <button type="button" class="btn btn-primary" (click)="onUpdateSubmit()">Submit</button>
   </fieldset>
 </form>

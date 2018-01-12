@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { SettingsService } from "../../services/settings.service";
 
@@ -10,18 +11,18 @@ import { SettingsService } from "../../services/settings.service";
 export class AddBatchComponent implements OnInit {
 
   academicYears;
-  batches;
   error;
   name;
   category;
-  course;
+  course?: string = "Regular";
   year;
   stream;
   classSession;
   enrolledFor;
 
   constructor(
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -51,7 +52,7 @@ export class AddBatchComponent implements OnInit {
     console.log(newBatch);
     this.settingsService.addBatch(newBatch).subscribe(batchData =>{
       if(batchData.success){
-        this.batches = batchData.batches;
+        this.router.navigate(['settings']);
       }
       else this.error = batchData.msg.message;
     })
@@ -79,4 +80,7 @@ export class AddBatchComponent implements OnInit {
     this.enrolledFor = "";
   }
 
+  showCourses(){
+    return (this.enrolledFor == "X" || this.enrolledFor == "XII");
+  }
 }

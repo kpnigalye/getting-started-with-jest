@@ -1,20 +1,20 @@
 <ul class="nav nav-tabs">
-  <li class="nav-item">
+  <li class="nav-item" (click)="unselectAll()">
     <a class="nav-link active show" data-toggle="tab" href="#english">English Medium</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="unselectAll()">
     <a class="nav-link" data-toggle="tab" href="#marathi">Marathi Medium</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="unselectAll()">
     <a class="nav-link" data-toggle="tab" href="#semienglish">Semi-English Medium</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="unselectAll()">
     <a class="nav-link" data-toggle="tab" href="#commerce">Commerce</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="unselectAll()">
     <a class="nav-link" data-toggle="tab" href="#arts">Arts</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="unselectAll()">
     <a class="nav-link" data-toggle="tab" href="#science">Science</a>
   </li>
 </ul>
@@ -24,27 +24,7 @@
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade active show" id="english">
     <form id="filter-form">
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
-      </div>
+      
       <!-- Enrolled for : options specific to school section -->
       <div class="row">
         <div class="col-3">
@@ -69,7 +49,7 @@
       </div>
 
       <!-- Courses -->
-      <div class="row">
+      <div class="row" *ngIf="showCourses()">
         <div class="col-3">
           <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
         </div>
@@ -140,27 +120,6 @@
   </div>
   <div class="tab-pane fade" id="marathi">
     <form id="filter-form">
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
-      </div>
       <!-- Enrolled for : options specific to school section -->
       <div class="row">
         <div class="col-3">
@@ -185,7 +144,7 @@
       </div>
 
       <!-- Courses -->
-      <div class="row">
+      <div class="row" *ngIf="showCourses()">
         <div class="col-3">
           <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
         </div>
@@ -256,27 +215,6 @@
   </div>
   <div class="tab-pane fade" id="semienglish">
     <form id="filter-form">
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
-      </div>
       <!-- Enrolled for : options specific to school section -->
       <div class="row">
         <div class="col-3">
@@ -301,7 +239,7 @@
       </div>
 
       <!-- Courses -->
-      <div class="row">
+      <div class="row" *ngIf="showCourses()">
         <div class="col-3">
           <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
         </div>
@@ -374,28 +312,6 @@
     <form id="filter-form">
       <div class="row">
         <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-3">
           <label class="col-form-label col-form-label-sm" for="inputSmall">Enrolled For</label>
         </div>
         <div class="col-9">
@@ -415,7 +331,7 @@
 
       <div class="row">
         <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Subjects Offered</label>
+          <label class="col-form-label col-form-label-sm" for="inputSmall">Subjects</label>
         </div>
         <div class="col-9">
           <div class="form-check">
@@ -430,7 +346,7 @@
       </div>
 
       <!-- Courses -->
-      <div class="row">
+      <div class="row" *ngIf="showCourses()">
         <div class="col-3">
           <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
         </div>
@@ -503,28 +419,6 @@
     <form id="filter-form">
       <div class="row">
         <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-3">
           <label class="col-form-label col-form-label-sm" for="inputSmall">Enrolled For</label>
         </div>
         <div class="col-9">
@@ -559,7 +453,7 @@
       </div>
 
       <!-- Courses -->
-      <div class="row">
+      <div class="row" *ngIf="showCourses()">
         <div class="col-3">
           <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
         </div>
@@ -631,12 +525,13 @@
   <div class="tab-pane fade" id="science">
     <div class="row">
       <div class="col-sm-12 col-md-3 col-lg-3">
-        <div class="list-group nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <!-- <div class="list-group nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
           <a class="list-group-item nav-link active" id="v-pills-xi-morn-tab" data-toggle="pill" href="#v-pills-xi-morn" role="tab" aria-controls="v-pills-xi-morn"
             aria-selected="true">XI - Morning</a>
             <a class="list-group-item nav-link" id="v-pills-xi-even-tab" data-toggle="pill" href="#v-pills-xi-even" role="tab" aria-controls="v-pills-xi-even"
-            aria-selected="true">XI - Evening</a>
-          <a class="list-group-item nav-link" id="v-pills-xii-tab" data-toggle="pill" href="#v-pills-xii" role="tab" aria-controls="v-pills-xii" aria-selected="false">XII</a>
+            aria-selected="true" (click)="listScienceStudents('XI', 'Regular', 'Evening')">XI - Evening</a>
+          <a class="list-group-item nav-link" id="v-pills-xii-tab" data-toggle="pill" href="#v-pills-xii" role="tab" aria-controls="v-pills-xii" 
+            aria-selected="false" (click)="listScienceStudents('XII', 'Vacation', 'Evening')">XII</a>
           <a class="list-group-item nav-link" id="v-pills-xiandxii-tab" data-toggle="pill" href="#v-pills-xiandxii" role="tab" aria-controls="v-pills-xiandxii"
             aria-selected="false">XI + XII</a>
           <a class="list-group-item nav-link" id="v-pills-neet-tab" data-toggle="pill" href="#v-pills-neet" role="tab" aria-controls="v-pills-neet"
@@ -644,7 +539,7 @@
           <a class="list-group-item nav-link" id="v-pills-cet-tab" data-toggle="pill" href="#v-pills-cet" role="tab" aria-controls="v-pills-cet" aria-selected="false">MH-CET</a>
           <a class="list-group-item nav-link" id="v-pills-neetcet-tab" data-toggle="pill" href="#v-pills-neetcet" role="tab" aria-controls="v-pills-neetcet"
             aria-selected="false">NEET + MH-CET</a>
-        </div> 
+        </div>  -->
       </div>
       <div class="col-sm-12 col-md-9 col-lg-9 search-results">
         <div class="tab-content" id="v-pills-tabContent">

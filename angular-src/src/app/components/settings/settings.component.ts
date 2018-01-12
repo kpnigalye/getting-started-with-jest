@@ -19,6 +19,7 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("list");
     this.settingsService.listAcademicYears().subscribe(data => {
       if (data.success) {
         this.academicYears = data.years;
@@ -30,7 +31,8 @@ export class SettingsComponent implements OnInit {
 
     this.settingsService.listBatches().subscribe(data => {
       if (data.success) {
-        this.batches = data.years;
+        this.batches = data.batches;
+        console.log(this.batches);
       }
       else {
         this.error = data.msg.message;
@@ -38,4 +40,17 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  SetCurrentYear(index) {
+    if (this.academicYears) {
+      this.academicYears[index].isCurrentYear = true;
+      this.settingsService.setCurrentYear(this.academicYears[index]).subscribe(data => {
+        if (data.success) {
+          this.academicYears[index].isCurrentYear = true;
+        }
+        else {
+          this.error = data.msg.message;
+        }
+      });
+    }
+  }
 }

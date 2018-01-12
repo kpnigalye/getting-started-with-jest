@@ -20,7 +20,7 @@
           <td>{{i+1}}</td>
           <td>{{year.year}}</td>
           <td>
-            <button type="button" class="btn btn-secondary" *ngIf="!year.isCurrentYear" (click)="SetCurrentYear">Set Current Year</button>
+            <button type="button" class="btn btn-secondary" *ngIf="!year.isCurrentYear" (click)="SetCurrentYear(i)">Set Current Year</button>
           </td>
         </tr>
       </tbody>
@@ -39,14 +39,17 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Year</th>
-            <!-- <th scope="col">Options</th> -->
+            <th scope="col">Category</th>
+            <th scope="col">Stream</th>
+            <th scope="col">Standard</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let batch of batches;let i = index" class="table-bordered">
             <td>{{i+1}}</td>
-            <td>{{batch.year}}</td>
+            <td>{{batch.category}}</td>
+            <td>{{batch.stream}}</td>
+            <td>{{batch.name}}/{{batch.stream}}</td>
           </tr>
         </tbody>
       </table>

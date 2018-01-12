@@ -56,9 +56,10 @@ export class AuthService {
   }
 
   // Fucntion to stire user record in localstorage
-  storeUserData(token, user) {
+  storeUserData(token, user, currentYear) {
     // add current year here
     console.log("storeUserData");
+    localStorage.setItem('currentYear', currentYear);
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('branch', user.branch);

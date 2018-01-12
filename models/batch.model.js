@@ -46,5 +46,6 @@ module.exports.addBatch = function (newbatch, callback) {
 
 module.exports.listBatches = function (callback) {
     console.log("model.listBatches");
-    Batch.find({ isDeleted: false }, callback);
+    const query = { "isDeleted": false }
+    Batch.find(query, callback);
 }

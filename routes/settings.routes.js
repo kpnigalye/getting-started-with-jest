@@ -24,7 +24,7 @@ router.post('/addBatch', (req, res, next) => {
 router.post('/addAcademicYear', (req, res, next) => {
 
     let newAcademicYear = new AcademicYearModel(req.body);
-    
+
     AcademicYearModel.addAcademicYear(newAcademicYear, (err, year) => {
         if (err) {
             res.json({ success: false, msg: err });
@@ -37,8 +37,7 @@ router.post('/addAcademicYear', (req, res, next) => {
 
 // Search School section students By Parameters
 router.get('/listBatches', (req, res, next) => {
-    console.log(req.query);
-    BatchModel.listBatches(req.query, (err, batches) => {
+    BatchModel.listBatches((err, batches) => {
         if (err) {
             res.json({ success: false, msg: err });
         } else {
@@ -54,6 +53,30 @@ router.get('/listAcademicYears', (req, res, next) => {
             res.json({ success: false, msg: err });
         } else {
             res.json({ success: true, years: years });
+        }
+    });
+});
+
+
+router.post('/setCurrentYear', (req, res, next) => {
+    console.log("router: setCurrentYear");
+    let yearToUpdate = new AcademicYearModel(req.body);
+
+    AcademicYearModel.setCurrentYear(yearToUpdate, (err, year) => {
+        if (err) {
+            res.json({ success: false, msg: err });
+        } else {
+            res.json({ success: true, year: year });
+        }
+    });
+});
+
+router.get('/getCurrentYear', (req, res, next) => {
+    AcademicYearModel.getCurrentYear((err, year) => {
+        if (err) {
+            res.json({ success: false, msg: err });
+        } else {
+            res.json({ success: true, year: year });
         }
     });
 });

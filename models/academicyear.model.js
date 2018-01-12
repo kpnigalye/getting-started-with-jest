@@ -26,3 +26,16 @@ module.exports.listAcademicYears = function (callback) {
     const query = { "isDeleted": false }
     AcademicYear.find(query, callback);
 }
+
+module.exports.setCurrentYear = function(year, callback){
+    console.log("model.listAcademicYears");
+
+    // find current year and set it to false
+    AcademicYear.findByIdAndUpdate(year._id, year, callback);
+}
+
+module.exports.getCurrentYear = function (callback) {
+    console.log("model.getCurrentYear");
+    const query = { "isCurrentYear": true }
+    AcademicYear.findOne(query, callback);
+}

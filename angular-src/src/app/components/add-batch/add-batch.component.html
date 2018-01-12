@@ -9,21 +9,6 @@
     <hr/>
 
     <div class="row">
-      <div class="form-group col-sm-12 col-md-6 col-lg-6">
-        <label class="col-form-label col-form-label-sm" for="inputSmall">Name</label>
-        <input class="form-control form-control-sm" type="text" id="name" name="name" [(ngModel)]="name" required>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group col-sm-12 col-md-6 col-lg-6">
-        <label for="academicyear">Academic Year</label>
-        <select id="academicyear" class="custom-select" name="year" [(ngModel)]="year">
-          <option *ngFor="let year of academicYears" value="year.year">{{year.year}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="row">
       <div class="col-3">
         <label class="col-form-label col-form-label-sm" for="inputSmall">Category</label>
       </div>
@@ -37,6 +22,17 @@
             <input type="radio" class="form-check-input" name="category" [(ngModel)]="category" id="categoryRdo" value="College Section"> College Section
           </label>
         </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label class="col-form-label col-form-label-sm" for="inputSmall">Academic Year</label>
+      </div>
+      <div class="col-9">
+        <select id="academicyear" class="custom-select" name="year" [(ngModel)]="year">
+          <option *ngFor="let year of academicYears" value="{{year.year}}">{{year.year}}</option>
+        </select>
       </div>
     </div>
 
@@ -123,7 +119,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="showCourses()">
       <div class="col-3">
         <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
       </div>
@@ -153,6 +149,15 @@
             <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="evenRdo" value="Evening"> Evening
           </label>
         </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label class="col-form-label col-form-label-sm" for="inputSmall">Name</label>
+      </div>
+      <div class="col-9">
+        <input class="form-control form-control-sm" type="text" id="name" name="name" [(ngModel)]="name" required>
       </div>
     </div>
 

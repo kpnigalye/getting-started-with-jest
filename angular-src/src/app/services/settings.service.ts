@@ -36,9 +36,16 @@ export class SettingsService {
       .map(res => res.json());
   }
 
-  listBatches() {
+  listBatches(year?) {
     let params: URLSearchParams = new URLSearchParams();
+
+    if (year)
+      params.set("year", year);
+    else
+      params.set("year", localStorage.getItem('currentYear'));
+
     params.set("branch", localStorage.getItem('branch'));
+
 
     return this.http.get(environment.settingsUrl.concat('listBatches'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());

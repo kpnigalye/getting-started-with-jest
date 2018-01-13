@@ -37,7 +37,8 @@ router.post('/addAcademicYear', (req, res, next) => {
 
 // Search School section students By Parameters
 router.get('/listBatches', (req, res, next) => {
-    BatchModel.listBatches((err, batches) => {
+    
+    BatchModel.listBatches(req.query.branch, req.query.year, (err, batches) => {
         if (err) {
             res.json({ success: false, msg: err });
         } else {

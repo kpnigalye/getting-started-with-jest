@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { StudentService } from "../../services/student.service";
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-update-student',
@@ -11,6 +12,7 @@ import { StudentService } from "../../services/student.service";
 export class UpdateStudentComponent implements OnInit {
 
   id;
+  error;
   userId;
   name;
   address;
@@ -31,17 +33,29 @@ export class UpdateStudentComponent implements OnInit {
   instituteTiming;
   currentStandard;
   isCombinedAdmission;
+  year;
+  academicYears;
   isDeleted;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private settingsService: SettingsService
   ) { }
 
   ngOnInit() {
 
     this.id = this.route.snapshot.params['id'];
+
+    this.settingsService.listAcademicYears().subscribe(data => {
+      if (data.success) {
+        this.academicYears = data.years;
+      }
+      else {
+        this.error = data.msg.message;
+      }
+    });
 
     this.studentService.getStudentDetailsById(this.id).subscribe(studentData => {
       console.log(studentData.student);
@@ -61,6 +75,7 @@ export class UpdateStudentComponent implements OnInit {
       this.category = studentData.student.category;
       this.stream = studentData.student.stream;
       this.offeredSubjects = studentData.student.offeredSubjects;
+      this.year = studentData.student.currentYear;
     });
 
   }
@@ -91,6 +106,7 @@ export class UpdateStudentComponent implements OnInit {
       },
       contactDetails: this.addContactDetails(),
       isCombinedAdmission: (this.enrolledFor == "XI + XII"),
+      currentYear: this.year,
       isDeleted: false
     }
 
@@ -171,8 +187,9 @@ export class UpdateStudentComponent implements OnInit {
     this.offeredSubjects = "";
   }
 
-  showCourses(){
-    return (this.enrolledFor == "X" || this.enrolledFor == "XII");
+  showCourses() {
+    return (this.enrolledFor == "IX" || this.enrolledFor == "X"
+      || this.enrolledFor == "XII" || this.enrolledFor == "XI + XII");
   }
 
 }

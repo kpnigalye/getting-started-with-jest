@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
+import { SettingsService } from '../../services/settings.service';
 import { StudentService } from "../../services/student.service";
 
 @Component({
@@ -8,6 +10,7 @@ import { StudentService } from "../../services/student.service";
 })
 export class StudentsListingComponent implements OnInit {
 
+  year;
   course: string = "Regular";
   classSession;
   category;
@@ -17,19 +20,54 @@ export class StudentsListingComponent implements OnInit {
   offeredSubjects;
   students;
 
+  error;
+  academicYears;
   englishMediumData;
   marathiMediumData;
   semienglishMediumData;
   commerceSectionData;
   artsSectionData;
   scienceSectionData;
+  batches;
+  batchesByTab;
 
   constructor(
-    private studentService: StudentService
+    private studentService: StudentService,
+    private settingsService: SettingsService
   ) { }
 
   ngOnInit() {
     console.log('students-listing');
+    this.settingsService.listAcademicYears().subscribe(data => {
+      if (data.success) {
+        this.academicYears = data.years;
+        var currentYear = this.academicYears.filter(function (year) {
+          return year.isCurrentYear == true;
+        })[0].year;
+        console.log(currentYear);
+
+        this.settingsService.listBatches(currentYear).subscribe(batchData => {
+          if (batchData.success) {
+            console.log(batchData.batches);
+            this.batches = batchData.batches;
+            // default to first tab
+            this.loadBatchButtons("English");
+          } else {
+            this.error = batchData.msg.message;
+          }
+        })
+      }
+      else {
+        this.error = data.msg.message;
+      }
+    });
+  }
+
+  // Load batches buttons
+  loadBatchButtons(stream){
+    this.batchesByTab = this.batches.filter(function (batch) {
+      return batch.stream == stream;
+    });
   }
 
   checkIfCollegeSection() {
@@ -62,47 +100,35 @@ export class StudentsListingComponent implements OnInit {
     this.course = "Regular";
   }
 
-  listStudents(category, stream) {
-    console.log("from liststudents");
+  listStudents(category, stream, enrolledFor, course, classSession) {
 
-    if (stream == "English" || stream == "Semi-English" || stream == "Marathi") {
-      this.studentService.searchSchoolSectionStudents(category, stream, this.enrolledFor, this.course, this.classSession).subscribe(studentsData => {
-        if (studentsData.success) {
-          this.students = studentsData.students;
-          if (stream == "English")
-            this.englishMediumData = studentsData.students;
-          if (stream == "Semi-English")
-            this.semienglishMediumData = studentsData.students;
-          if (stream == "Marathi")
-            this.marathiMediumData = studentsData.students;
-        }
-      });
-    }
+    this.studentService.searchSchoolSectionStudents(category, stream, enrolledFor, course, classSession).subscribe(studentsData => {
+      if (studentsData.success) {
+        this.students = studentsData.students;
+        if (stream == "English")
+          this.englishMediumData = studentsData.students;
+        if (stream == "Semi-English")
+          this.semienglishMediumData = studentsData.students;
+        if (stream == "Marathi")
+          this.marathiMediumData = studentsData.students;
+      }
+      else
+        this.error = studentsData.msg.message;
+    });
   }
 
-  listScienceStudents(enrolledFor, course, classSession) {
+  listScienceStudents(enrolledFor, course, classSession, entrance?) {
     console.log("from listScienceStudents");
 
-    this.studentService.searchCollegeSectionStudents("College Section", "Science", enrolledFor, course, classSession).subscribe(studentsData => {
+    this.studentService.searchCollegeSectionStudents("College Section", "Science", enrolledFor, course, classSession, entrance).subscribe(studentsData => {
       if (studentsData.success) {
         this.scienceSectionData = studentsData.students;
       }
     });
-
   }
 
   showCourses() {
     return (this.enrolledFor == "X" || this.enrolledFor == "XII");
   }
-
-  // listScienceStreamStudents(branch, category, course, classSession){
-  //   this.studentService.searchCollegeSectionStudents(
-  //     branch, /*category*/ "College Section", /*stream*/"Science", this.enrolledFor,
-  //     course, classSession, "PCMB"
-  //   ).subscribe(studentsData => {
-  //     if (studentsData.success) 
-  //       this.scienceSectionData = studentsData.students;
-  //   });
-  // }
 
 }

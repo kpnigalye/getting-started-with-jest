@@ -25,7 +25,7 @@ const StudentSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    currentYear :{
+    currentYear: {
         type: String,
         required: true
     },
@@ -94,9 +94,18 @@ module.exports.searchSchoolSectionStudents = function (params, callback) {
 
 module.exports.searchCollegeSectionStudents = function (params, callback) {
     console.log("model.searchCollegeSectionStudents - " + params);
-    Student.find({
-        "stream": params.stream, "stream": params.stream, "currentStandard": params.enrolledFor, "category": params.category,
-        "course": params.course, "classSession": params.classSession
+    if (params.entrance) {
+        Student.find({
+            "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor, "category": params.category,
+            "course": params.course, "classSession": params.classSession, "entrance": params.entrance
+        }
+            , callback);
     }
-        , callback);
+    else {
+        Student.find({
+            "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor, "category": params.category,
+            "course": params.course, "classSession": params.classSession
+        }
+            , callback);
+    }
 }

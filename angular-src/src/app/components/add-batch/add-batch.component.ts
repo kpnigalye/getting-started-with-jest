@@ -16,6 +16,7 @@ export class AddBatchComponent implements OnInit {
   category;
   course?: string = "Regular";
   year;
+  entrance;
   stream;
   classSession;
   enrolledFor;
@@ -47,8 +48,14 @@ export class AddBatchComponent implements OnInit {
       stream: this.stream,
       classSession: this.classSession,
       enrolledFor: this.enrolledFor,
-      isDeleted: false
+      isDeleted: false,
+      entrance :""
     }
+
+    if(this.checkIfScienceStream()){
+      newBatch.entrance = this.entrance;
+    }
+
     console.log(newBatch);
     this.settingsService.addBatch(newBatch).subscribe(batchData =>{
       if(batchData.success){

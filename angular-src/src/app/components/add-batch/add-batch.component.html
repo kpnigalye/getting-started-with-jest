@@ -119,6 +119,26 @@
       </div>
     </div>
 
+    <div class="row" *ngIf="stream == 'Science'">
+      <div class="col-2"></div>
+      <div class="col-10">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="entranceRdo" [(ngModel)]="entrance" id="noneRdo" value="None"> None
+          </label>
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="entranceRdo" [(ngModel)]="entrance" id="medicalEntRdo" value="NEET"> NEET
+          </label>
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="entranceRdo" [(ngModel)]="entrance" id="enggEntRdo" value="MH-CET"> MH-CET
+          </label>
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="entranceRdo" [(ngModel)]="entrance" id="bothEntRdo" value="NEET + MH-CET"> NEET + MH-CET
+          </label>
+        </div>
+      </div>
+    </div>
+
     <div class="row" *ngIf="showCourses()">
       <div class="col-3">
         <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>

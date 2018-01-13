@@ -10,7 +10,9 @@
 <div class="row" *ngIf="student">
   <div class="col-sm-12 col-md-12 col-lg-12">
     <h3>
-      <strong> {{student.name}} </strong>
+      <strong> {{student.name}}
+        <button type="button" class="btn btn-success" *ngIf="student.isCombinedAdmission" (click)="admitToNextYear()">Admit to Next Year</button>
+      </strong>
     </h3>
     <hr/>
   </div>
@@ -21,6 +23,8 @@
       </div>
       <div class="card-block">
         <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <strong>Academic Year:</strong> {{ student.currentYear }}</li>
           <li class="list-group-item">
             <strong>Studying in:</strong> {{ student.currentStandard }}
             <small>({{ student.stream }})</small>/ {{ student.course }}</li>
@@ -66,7 +70,8 @@
 <br/>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-sm" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -79,16 +84,16 @@
       <div class="modal-body">
         <!-- Form to add/edit installment -->
         <form *ngIf="addState || editState">
-            <div class="form-row">
-              <div class="col-12">
-                <label for="installment-amt" class="col-form-label">Amount:</label>
-                <input type="number" class="form-control" id="installment-amt" name="amount" [(ngModel)]="amount">
-              </div>
-              <div class="col-12">
-                <label for="message-text" class="col-form-label">Due Date:</label>
-                <input type="date" class="form-control" id="installment-dueDate" name="paymentDate" [(ngModel)]="paymentDate">
-              </div>
+          <div class="form-row">
+            <div class="col-12">
+              <label for="installment-amt" class="col-form-label">Amount:</label>
+              <input type="number" class="form-control" id="installment-amt" name="amount" [(ngModel)]="amount">
             </div>
+            <div class="col-12">
+              <label for="message-text" class="col-form-label">Due Date:</label>
+              <input type="date" class="form-control" id="installment-dueDate" name="paymentDate" [(ngModel)]="paymentDate">
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -120,6 +125,9 @@
             <strong>Balance Installment Amount:
               <br>
             </strong>Rs. {{ balanceInstallmentAmount }}</li>
+          <li class="list-group-item">
+            <strong>Expected Date of Completion: </strong>
+            <br /> {{ fees.expectedDateOfCompletion | date:'dd-MM-yyyy' }}</li>
         </ul>
       </div>
 

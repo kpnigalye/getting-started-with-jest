@@ -14,7 +14,7 @@ const BatchSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    stream:{
+    stream: {
         type: String,
         require: true
     },
@@ -26,6 +26,8 @@ const BatchSchema = mongoose.Schema({
         type: String,
         require: true
     },
+    // only for science stream
+    entrance: String,
     classSession: {
         type: String,
         require: true
@@ -44,8 +46,8 @@ module.exports.addBatch = function (newbatch, callback) {
     newbatch.save(callback);
 }
 
-module.exports.listBatches = function (callback) {
+module.exports.listBatches = function (branch, year, callback) {
     console.log("model.listBatches");
-    const query = { "isDeleted": false }
+    const query = { "isDeleted": false, 'branch': branch, 'year': year }
     Batch.find(query, callback);
 }

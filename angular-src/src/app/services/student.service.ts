@@ -16,7 +16,6 @@ export class StudentService {
   // Register 
   // Register new user
   addNewStudent(student) {
-    student.currentYear = localStorage.getItem('currentYear');
     student.branch = localStorage.getItem('branch');
     console.log("current branch is for newly added student is " + student.branch);
 
@@ -55,7 +54,7 @@ export class StudentService {
       .map(res => res.json());
   }
 
-  searchCollegeSectionStudents(category, stream, enrolledFor, course, classSession) {
+  searchCollegeSectionStudents(category, stream, enrolledFor, course, classSession, entrance?) {
     let params: URLSearchParams = new URLSearchParams();
     params.set("branch", localStorage.getItem("branch"));
     params.set("category", category);
@@ -63,6 +62,9 @@ export class StudentService {
     params.set("enrolledFor", enrolledFor);
     params.set("course", course);
     params.set("classSession", classSession);
+
+    if(entrance)
+      params.set("entrance", entrance);
 
     return this.http.get(environment.studentsUrl.concat('searchCollegeSectionStudents'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());

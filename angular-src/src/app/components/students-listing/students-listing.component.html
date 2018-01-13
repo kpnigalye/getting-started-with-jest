@@ -1,20 +1,37 @@
+<div class="alert alert-dismissible alert-danger" role="alert" *ngIf="error">
+  {{error}}
+</div>
+
+<div class="row">
+  <div class="col-2">
+    <label class="col-form-label col-form-label-sm" for="inputSmall">Select Year</label>
+  </div>
+  <div class="col-10">
+    <select id="academicyear" class="custom-select" name="year" [(ngModel)]="year">
+      <option *ngFor="let year of academicYears" selected="{{year.isCurrentYear}}" value="{{year.year}}">{{year.year}}</option>
+    </select>
+  </div>
+</div>
+
+<br/>
+
 <ul class="nav nav-tabs">
-  <li class="nav-item">
+  <li class="nav-item" (click)="loadBatchButtons('English')">
     <a class="nav-link active show" data-toggle="tab" href="#english">English Medium</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="loadBatchButtons('Marathi')">
     <a class="nav-link" data-toggle="tab" href="#marathi">Marathi Medium</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="loadBatchButtons('Semi-English')">
     <a class="nav-link" data-toggle="tab" href="#semienglish">Semi-English Medium</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="loadBatchButtons('Commerce')">
     <a class="nav-link" data-toggle="tab" href="#commerce">Commerce</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="loadBatchButtons('Arts')">
     <a class="nav-link" data-toggle="tab" href="#arts">Arts</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" (click)="loadBatchButtons('Science')">
     <a class="nav-link" data-toggle="tab" href="#science">Science</a>
   </li>
 </ul>
@@ -23,89 +40,18 @@
 
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade active show" id="english">
-    <form id="filter-form">
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
-      </div>
-      <!-- Enrolled for : options specific to school section -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Enrolled For</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="viiiRdo" value="VIII"> VIII
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="ixRdo" value="IX"> IX
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="ixAndxRdo" value="IX + X"> IX + X
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xRdo" value="X"> X
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Courses -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="vacationRdo" value="Vacation"> Vacation
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="regularRdo" value="Regular"> Regular
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Class Session -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Class Session</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="morningRdo" value="Morning"> Morning
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="evenRdo" value="Evening"> Evening
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <button class="btn btn-md btn-primary btn-block" type="button" (click)="listStudents('School Section', 'English')">Apply</button>
-    </form>
     <br/>
-    <table class="table table-sm table-hover" *ngIf="englishMediumData">
+
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listStudents(batchBtn.category, batchBtn.stream, batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
+      </div>
+    </div>
+
+    <br/>
+    <table class="table table-sm table-hover searchresults" *ngIf="englishMediumData">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Sr.No.</th>
@@ -139,87 +85,13 @@
     </table>
   </div>
   <div class="tab-pane fade" id="marathi">
-    <form id="filter-form">
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listStudents(batchBtn.category, batchBtn.stream, batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
       </div>
-      <!-- Enrolled for : options specific to school section -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Enrolled For</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="viiiRdo" value="VIII"> VIII
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="ixRdo" value="IX"> IX
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="ixAndxRdo" value="IX + X"> IX + X
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xRdo" value="X"> X
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Courses -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="vacationRdo" value="Vacation"> Vacation
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="regularRdo" value="Regular"> Regular
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Class Session -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Class Session</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="morningRdo" value="Morning"> Morning
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="evenRdo" value="Evening"> Evening
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <button class="btn btn-md btn-primary btn-block" type="button" (click)="listStudents('School Section', 'Marathi')">Apply</button>
-    </form>
+    </div>
     <br/>
     <table class="table table-sm table-hover" *ngIf="marathiMediumData">
       <thead class="thead-dark">
@@ -255,87 +127,13 @@
     </table>
   </div>
   <div class="tab-pane fade" id="semienglish">
-    <form id="filter-form">
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listStudents(batchBtn.category, batchBtn.stream, batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
       </div>
-      <!-- Enrolled for : options specific to school section -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Enrolled For</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="viiiRdo" value="VIII"> VIII
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="ixRdo" value="IX"> IX
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="ixAndxRdo" value="IX + X"> IX + X
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xRdo" value="X"> X
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Courses -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="vacationRdo" value="Vacation"> Vacation
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="regularRdo" value="Regular"> Regular
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Class Session -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Class Session</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="morningRdo" value="Morning"> Morning
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="evenRdo" value="Evening"> Evening
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <button class="btn btn-md btn-primary btn-block" type="button" (click)="listStudents('School Section', 'Semi-English')">Apply</button>
-    </form>
+    </div>
     <br/>
     <table class="table table-sm table-hover" *ngIf="semienglishMediumData">
       <thead class="thead-dark">
@@ -371,100 +169,13 @@
     </table>
   </div>
   <div class="tab-pane fade" id="commerce">
-    <form id="filter-form">
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listCommerceStudents(batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
       </div>
-
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Enrolled For</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xiRdo" value="XI"> XI
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xiiRdo" value="XII"> XII
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xiAndxiiRdo" value="XI + XII"> XI + XII
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Subjects Offered</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="spRdo" value="All subjects with SP"> All subjects with SP
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="mathsRdo" value="All subjects with Maths"> All subjects with Maths
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Courses -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="vacationRdo" value="Vacation"> Vacation
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="regularRdo" value="Regular"> Regular
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Class Session -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Class Session</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="morningRdo" value="Morning"> Morning
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="evenRdo" value="Evening"> Evening
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <button class="btn btn-md btn-primary btn-block" type="button" (click)="listStudents('College Section', 'Commerce')">Apply</button>
-    </form>
+    </div>
     <br/>
     <table class="table table-sm table-hover" *ngIf="commerceSectionData">
       <thead class="thead-dark">
@@ -500,100 +211,13 @@
     </table>
   </div>
   <div class="tab-pane fade" id="arts">
-    <form id="filter-form">
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Branch</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Chembur"> Chembur
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Govandi"> Govandi
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" (click)="unselectAll()" name="branchRadios" [(ngModel)]="branch" id="branchRdo"
-                value="Mankhurd"> Mankhurd
-            </label>
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listArtsStudents(batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
       </div>
-
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Enrolled For</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xiRdo" value="XI"> XI
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xiiRdo" value="XII"> XII
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="standardRdo" [(ngModel)]="enrolledFor" id="xiAndxiiRdo" value="XI + XII"> XI + XII
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Subjects</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="foursubRdo" value="4 Subjects"> 4 Subjects
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="coursesOfferedRdo" [(ngModel)]="offeredSubjects" id="allsubRdo" value="All Subjects"> All Subjects
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Courses -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Course</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="vacationRdo" value="Vacation"> Vacation
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="courseRadios" [(ngModel)]="course" id="regularRdo" value="Regular"> Regular
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Class Session -->
-      <div class="row">
-        <div class="col-3">
-          <label class="col-form-label col-form-label-sm" for="inputSmall">Class Session</label>
-        </div>
-        <div class="col-9">
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="morningRdo" value="Morning"> Morning
-            </label>
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" [(ngModel)]="classSession" id="evenRdo" value="Evening"> Evening
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <button class="btn btn-md btn-primary btn-block" type="button" (click)="listStudents('College Section', 'Arts')">Apply</button>
-    </form>
+    </div>
     <br/>
     <table class="table table-sm table-hover" *ngIf="artsSectionData">
       <thead class="thead-dark">
@@ -629,69 +253,45 @@
     </table>
   </div>
   <div class="tab-pane fade" id="science">
+
     <div class="row">
-      <div class="col-sm-12 col-md-3 col-lg-3">
-        <div class="list-group nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <a class="list-group-item nav-link active" id="v-pills-xi-morn-tab" data-toggle="pill" href="#v-pills-xi-morn" role="tab" aria-controls="v-pills-xi-morn"
-            aria-selected="true">XI - Morning</a>
-            <a class="list-group-item nav-link" id="v-pills-xi-even-tab" data-toggle="pill" href="#v-pills-xi-even" role="tab" aria-controls="v-pills-xi-even"
-            aria-selected="true">XI - Evening</a>
-          <a class="list-group-item nav-link" id="v-pills-xii-tab" data-toggle="pill" href="#v-pills-xii" role="tab" aria-controls="v-pills-xii" aria-selected="false">XII</a>
-          <a class="list-group-item nav-link" id="v-pills-xiandxii-tab" data-toggle="pill" href="#v-pills-xiandxii" role="tab" aria-controls="v-pills-xiandxii"
-            aria-selected="false">XI + XII</a>
-          <a class="list-group-item nav-link" id="v-pills-neet-tab" data-toggle="pill" href="#v-pills-neet" role="tab" aria-controls="v-pills-neet"
-            aria-selected="false">NEET</a>
-          <a class="list-group-item nav-link" id="v-pills-cet-tab" data-toggle="pill" href="#v-pills-cet" role="tab" aria-controls="v-pills-cet" aria-selected="false">MH-CET</a>
-          <a class="list-group-item nav-link" id="v-pills-neetcet-tab" data-toggle="pill" href="#v-pills-neetcet" role="tab" aria-controls="v-pills-neetcet"
-            aria-selected="false">NEET + MH-CET</a>
-        </div> 
-      </div>
-      <div class="col-sm-12 col-md-9 col-lg-9 search-results">
-        <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade show active" id="v-pills-xi-morn" role="tabpanel" aria-labelledby="v-pills-xi-morn-tab">
-              <table class="table table-sm table-hover" *ngIf="artsSectionData">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">Sr.No.</th>
-                      <th scope="col">Student Name</th>
-                      <th scope="col">Standard</th>
-                      <th scope="col">Session</th>
-                      <th scope="col">Contact Numbers</th>
-                      <th scope="col">School Name</th>
-                      <th scope="col">Options</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let student of artsSectionData; let i = index" class="table-bordered">
-                      <td>{{i+1}}</td>
-                      <td>{{student.name}}
-                        <br/> [ {{student.enrolledFor}} / {{student.course}} ]
-                      </td>
-                      <td>{{student.currentStandard}}</td>
-                      <td>{{student.classSession}}</td>
-                      <td>
-                        <div *ngFor="let number of student.contactDetails">
-                          {{ number }}
-                        </div>
-                      </td>
-                      <td>{{student.instituteInfo.name}}</td>
-                      <td>
-                        <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student._id]">Profile</button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-          </div>
-          <div class="tab-pane fade" id="v-pills-xi-even" role="tabpanel" aria-labelledby="v-pills-xi-even-tab">
-              xi even
-            </div>
-          <div class="tab-pane fade" id="v-pills-xii" role="tabpanel" aria-labelledby="v-pills-xii-tab">xii</div>
-          <div class="tab-pane fade" id="v-pills-xiandxii" role="tabpanel" aria-labelledby="v-pills-xiandxii-tab">xi + xii</div>
-          <div class="tab-pane fade" id="v-pills-neet" role="tabpanel" aria-labelledby="v-pills-neet-tab">neet</div>
-          <div class="tab-pane fade" id="v-pills-cet" role="tabpanel" aria-labelledby="v-pills-cet-tab">cet</div>
-          <div class="tab-pane fade" id="v-pills-neetcet" role="tabpanel" aria-labelledby="v-pills-neetcet-tab">neet + cet</div>
-        </div>
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listScienceStudents(batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession, batchBtn.entrance)">
+          {{batchBtn.name}}
+        </button>
       </div>
     </div>
+    <br/>
+    <table class="table table-sm table-hover searchresults" *ngIf="scienceSectionData">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr.No.</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Standard</th>
+          <th scope="col">Session</th>
+          <th scope="col">Contact Numbers</th>
+          <th scope="col">School Name</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of scienceSectionData; let i = index" class="table-bordered">
+          <td>{{i+1}}</td>
+          <td>{{student.name}}
+            <br/> [ {{student.enrolledFor}} / {{student.course}} ]
+          </td>
+          <td>{{student.currentStandard}}</td>
+          <td>{{student.classSession}}</td>
+          <td>
+            <div *ngFor="let number of student.contactDetails">
+              {{ number }}
+            </div>
+          </td>
+          <td>{{student.instituteInfo.name}}</td>
+          <td>
+            <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student._id]">Profile</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div>

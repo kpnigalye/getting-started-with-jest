@@ -1,11 +1,9 @@
-#filter-form{
-    max-width: 500px;
-    padding: 25px;
-    margin: 0px auto;
-    border: 2px solid #c0eefe;
-    border-style: groove;
+.cust-btn{
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .search-results{
-    border: 1px solid rgba(0, 0, 0, 0.125)
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    background-color: #eeeeee;
 }

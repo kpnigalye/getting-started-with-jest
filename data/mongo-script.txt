@@ -1,0 +1,2 @@
+mongoimport --db edusoft --collection batches --file "C:\Users\Krishna\Documents\bitbucket\edusoft\data\settings.json" --jsonArray
+mongoimport --db edusoft --collection users --file "C:\Users\Krishna\Documents\bitbucket\edusoft\data\user.json" --jsonArray

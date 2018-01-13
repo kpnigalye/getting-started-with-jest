@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from "@angular/http";
 import 'rxjs/add/operator/map';
 
+import { environment } from "../../environments/environment";
+
 @Injectable()
 export class PaymentService {
 
@@ -16,7 +18,7 @@ export class PaymentService {
     params.set("isPaid", "false");
     params.set("branch", localStorage.getItem('branch'));
 
-    return this.http.get('http://localhost:3000/payments/showBalanceFeesOnDashboard', { headers: this.setHeaders(), params : params })
+    return this.http.get(environment.paymentsUrl.concat('showBalanceFeesOnDashboard'), { headers: this.setHeaders(), params : params })
       .map(res => res.json());
   }
 
@@ -25,7 +27,7 @@ export class PaymentService {
     params.set("isChequeCleared", "false");
     params.set("branch", localStorage.getItem('branch'));
 
-    return this.http.get('http://localhost:3000/payments/showPendingChequeEntries', { headers: this.setHeaders(), params : params })
+    return this.http.get(environment.paymentsUrl.concat('showPendingChequeEntries'), { headers: this.setHeaders(), params : params })
       .map(res => res.json());
   }
 
@@ -33,7 +35,7 @@ export class PaymentService {
   addNewPayment(payment) {
     payment.branch = localStorage.getItem('branch');
 
-    return this.http.post('http://localhost:3000/payments/addNewPayment', payment, { headers: this.setHeaders() })
+    return this.http.post(environment.paymentsUrl.concat('addNewPayment'), payment, { headers: this.setHeaders() })
       .map(res => res.json());
   }
 
@@ -42,7 +44,7 @@ export class PaymentService {
     let params: URLSearchParams = new URLSearchParams();
     params.set("paymentId", paymentId);
 
-    return this.http.get('http://localhost:3000/payments/getPaymentById', { headers: this.setHeaders(), params: params })
+    return this.http.get(environment.paymentsUrl.concat('getPaymentById'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());
   }
 
@@ -51,14 +53,14 @@ export class PaymentService {
     let params: URLSearchParams = new URLSearchParams();
     params.set("studentId", studentId);
 
-    return this.http.get('http://localhost:3000/payments/getPaymentRecordByStudentId', { headers: this.setHeaders(), params: params })
+    return this.http.get(environment.paymentsUrl.concat('getPaymentRecordByStudentId'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());
   }
   
   // Update Payment record
   updatePaymentDetails(payment) {
     console.log("service: updatePaymentDetails");
-    return this.http.post('http://localhost:3000/payments/updatePaymentDetails', payment, { headers: this.setHeaders() })
+    return this.http.post(environment.paymentsUrl.concat('updatePaymentDetails'), payment, { headers: this.setHeaders() })
       .map(res => res.json());
   }
 

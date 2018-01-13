@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { StudentService } from '../../services/student.service';
+import { SettingsService } from '../../services/settings.service';
 
-import { settings } from "../../../environments/settings";
 import { AuthService } from '../../services/auth.service';
 import { PaymentService } from '../../services/payment.service';
 import { FeesdetailsService } from '../../services/feesdetails.service';
@@ -16,6 +16,7 @@ import { FeesdetailsService } from '../../services/feesdetails.service';
 })
 export class AddStudentComponent implements OnInit {
 
+  academicYears;
   studentId: string;
   feesDetailsId: string;
   userId?: string;
@@ -25,7 +26,7 @@ export class AddStudentComponent implements OnInit {
   stream?: string;
   enrolledFor?: string;
   entrance?: string;
-  course?: string;
+  course?: string = "Regular";
   offeredSubjects?: string;
   classSession?: string;
   instituteName?: string;
@@ -40,6 +41,7 @@ export class AddStudentComponent implements OnInit {
   concession?: number;
   expectedDateOfCompletion?: Date;
   error: string = "";
+  year: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,7 +50,8 @@ export class AddStudentComponent implements OnInit {
     private authService: AuthService,
     private studentsService: StudentService,
     private paymentService: PaymentService,
-    private feesdetailsService: FeesdetailsService
+    private feesdetailsService: FeesdetailsService,
+    private settingsService: SettingsService
   ) { }
 
   ngOnInit() {
@@ -61,6 +64,15 @@ export class AddStudentComponent implements OnInit {
       this.name = data.user.name;
       this.contactNumber1 = data.user.phoneNumber;
       console.log("getUserProfileById: " + this.name);
+    });
+
+    this.settingsService.listAcademicYears().subscribe(data => {
+      if (data.success) {
+        this.academicYears = data.years;
+      }
+      else {
+        this.error = data.msg.message;
+      }
     });
   }
 
@@ -84,9 +96,8 @@ export class AddStudentComponent implements OnInit {
         timing: this.instituteTiming
       },
       contactDetails: this.addContactDetails(),
-      isDeleted: false,
-      // add current year
-      currentYear: settings.currentYear
+      currentYear: this.year,
+      isDeleted: false
     }
 
     this.setCurrentStandard(newlyAddedStudent);
@@ -228,6 +239,10 @@ export class AddStudentComponent implements OnInit {
     this.enrolledFor = "";
     this.entrance = "";
     this.offeredSubjects = "";
+  }
+
+  showCourses() {
+    return (this.enrolledFor == "X" || this.enrolledFor == "XII");
   }
 
 }

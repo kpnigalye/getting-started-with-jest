@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from "@angular/http";
 import 'rxjs/add/operator/map';
 
+import { environment } from "../../environments/environment";
+
 @Injectable()
 export class StudentService {
 
@@ -17,14 +19,14 @@ export class StudentService {
     student.branch = localStorage.getItem('branch');
     console.log("current branch is for newly added student is " + student.branch);
 
-    return this.http.post('http://localhost:3000/students/addNewStudent', student, { headers: this.setHeaders() })
+    return this.http.post(environment.studentsUrl.concat('addNewStudent'), student, { headers: this.setHeaders() })
       .map(res => res.json());
   }
 
   // Update student information
   updateStudent(student) {
     console.log("service: updateStudent");
-    return this.http.post('http://localhost:3000/students/updateStudentInfo', student, { headers: this.setHeaders() })
+    return this.http.post(environment.studentsUrl.concat('updateStudentInfo'), student, { headers: this.setHeaders() })
       .map(res => res.json());
   }
 
@@ -34,35 +36,37 @@ export class StudentService {
     let params: URLSearchParams = new URLSearchParams();
     params.set("studentId", studentId);
 
-    return this.http.get('http://localhost:3000/students/getStudentDetailsById', { headers: this.setHeaders(), params: params })
+    return this.http.get(environment.studentsUrl.concat('getStudentDetailsById'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());
   }
 
   // Search School section Students By Parameters
-  searchSchoolSectionStudents(branch, category, stream, enrolledFor, course, classSession) {
+  searchSchoolSectionStudents(category, stream, enrolledFor, course, classSession) {
     let params: URLSearchParams = new URLSearchParams();
-    params.set("branch", branch);
+    params.set("branch", localStorage.getItem("branch"));
     params.set("category", category);
     params.set("stream", stream);
     params.set("enrolledFor", enrolledFor);
     params.set("course", course);
     params.set("classSession", classSession);
 
-    return this.http.get('http://localhost:3000/students/searchSchoolSectionStudents', { headers: this.setHeaders(), params: params })
+    return this.http.get(environment.studentsUrl.concat('searchSchoolSectionStudents'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());
   }
 
-  searchCollegeSectionStudents(branch, category, stream, enrolledFor, course, classSession, offeredSubjects) {
+  searchCollegeSectionStudents(category, stream, enrolledFor, course, classSession, entrance?) {
     let params: URLSearchParams = new URLSearchParams();
-    params.set("branch", branch);
+    params.set("branch", localStorage.getItem("branch"));
     params.set("category", category);
     params.set("stream", stream);
     params.set("enrolledFor", enrolledFor);
     params.set("course", course);
     params.set("classSession", classSession);
-    params.set("offeredSubjects", offeredSubjects);
 
-    return this.http.get('http://localhost:3000/students/searchCollegeSectionStudents', { headers: this.setHeaders(), params: params })
+    if(entrance)
+      params.set("entrance", entrance);
+
+    return this.http.get(environment.studentsUrl.concat('searchCollegeSectionStudents'), { headers: this.setHeaders(), params: params })
       .map(res => res.json());
   }
 

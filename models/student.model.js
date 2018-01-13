@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 
 // UserModel Schema
@@ -23,6 +22,10 @@ const StudentSchema = mongoose.Schema({
         required: true
     },
     currentStandard: {
+        type: String,
+        required: true
+    },
+    currentYear: {
         type: String,
         required: true
     },
@@ -82,7 +85,7 @@ module.exports.updateStudentInfo = function (userToUpdate, callback) {
 module.exports.searchSchoolSectionStudents = function (params, callback) {
     console.log("model.searchSchoolSectionStudents - " + params);
     Student.find({
-        "stream": params.stream, "stream": params.stream,
+        "branch": params.branch, "stream": params.stream, "stream": params.stream,
         "currentStandard": params.enrolledFor, "category": params.category,
         "course": params.course, "classSession": params.classSession
     }
@@ -91,9 +94,18 @@ module.exports.searchSchoolSectionStudents = function (params, callback) {
 
 module.exports.searchCollegeSectionStudents = function (params, callback) {
     console.log("model.searchCollegeSectionStudents - " + params);
-    Student.find({
-        "stream": params.stream, "stream": params.stream, "currentStandard": params.enrolledFor, "category": params.category,
-        "course": params.course, "classSession": params.classSession, "offeredSubjects": params.offeredSubjects
+    if (params.entrance) {
+        Student.find({
+            "branch": params.branch, "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor,
+            "category": params.category, "course": params.course, "classSession": params.classSession, "entrance": params.entrance
+        }
+            , callback);
     }
-        , callback);
+    else {
+        Student.find({
+            "branch": params.branch, "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor,
+            "category": params.category, "course": params.course, "classSession": params.classSession
+        }
+            , callback);
+    }
 }

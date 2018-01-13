@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { PaymentService } from '../../services/payment.service';
 
 declare var $: any;
@@ -10,6 +11,8 @@ declare var $: any;
 })
 export class DashboardComponent implements OnInit {
 
+  error;
+  academicYears;
   students: any;
   sciecneStudents: any[];
   artsStudents: any[];
@@ -33,6 +36,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     console.log("ngInit");
+    this.showDashboard();
+  }
+
+  showDashboard() {
 
     // Display balance fees
     this.paymentService.showBalanceFeesOnDashboard().subscribe(balanceFeesData => {
@@ -64,17 +71,15 @@ export class DashboardComponent implements OnInit {
     });
 
     this.getPendingCheques();
-    
   }
 
-  // Display pending cheque entries
-  getPendingCheques(){
+  getPendingCheques() {
+    // Display pending cheque entries
     this.paymentService.showPendingChequeEntries().subscribe(entries => {
       this.pendingChequeEntries = entries.pendingCheques;
       this.pendingChequeNotifications = this.pendingChequeEntries.length;
     });
   }
-
 
   markChequeAsCleared() {
     this.itemToEdit.isChequeCleared = true;
@@ -90,7 +95,6 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
 
   changeEditState(item) {
     this.editState = true;

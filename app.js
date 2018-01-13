@@ -24,6 +24,7 @@ mongoose.connection.on('error', (err) => {
 
 const app = express();
 
+const settings = require('./routes/settings.routes');
 const users = require('./routes/users.routes');
 const students = require('./routes/students.routes');
 const feesdetails = require('./routes/feesdetails.routes');
@@ -46,6 +47,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport')(passport);
 
+app.use('/settings', settings);
 app.use('/users', users);
 app.use('/students', students);
 app.use('/feesdetails', feesdetails);

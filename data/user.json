@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Students Classes Govandi",
+        "email": "studentsclasses@gmail.com",
+        "password":"111111",
+        "birthDate":"01/01/1981",
+        "phoneNumber":9224340720,
+        "isDeleted":false,
+        "isAdmin":true
+    },
+    {
+        "name": "Students Classes Chembur",
+        "email": "studentsclasseschembur@gmail.com",
+        "password":"111111",
+        "birthDate":"01/01/1981",
+        "phoneNumber":7506837714,
+        "isDeleted":false,
+        "isAdmin":true
+    }
+]

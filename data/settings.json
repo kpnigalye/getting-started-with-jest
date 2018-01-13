@@ -1,0 +1,200 @@
+[
+    {
+        "name": "8th Morning",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "English",
+        "classSession": "Morning",
+        "enrolledFor": "VIII",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "8th Morning",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Semi-English",
+        "classSession": "Morning",
+        "enrolledFor": "VIII",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "8th Morning",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Marathi",
+        "classSession": "Morning",
+        "enrolledFor": "VIII",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "8th Evening",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "English",
+        "classSession": "Evening",
+        "enrolledFor": "VIII",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "8th Evening",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Semi-English",
+        "classSession": "Evening",
+        "enrolledFor": "VIII",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "8th Evening",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Marathi",
+        "classSession": "Evening",
+        "enrolledFor": "VIII",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "9th Morning",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "English",
+        "classSession": "Morning",
+        "enrolledFor": "IX",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "9th Morning",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Marathi",
+        "classSession": "Morning",
+        "enrolledFor": "IX",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "9th Morning",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Semi-English",
+        "classSession": "Morning",
+        "enrolledFor": "IX",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "9th Evening",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "English",
+        "classSession": "Evening",
+        "enrolledFor": "IX",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "9th Evening",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Marathi",
+        "classSession": "Evening",
+        "enrolledFor": "IX",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "9th Evening",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Semi-English",
+        "classSession": "Evening",
+        "enrolledFor": "IX",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "10th Morning",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "English",
+        "classSession": "Morning",
+        "enrolledFor": "X",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "10th Morning",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Marathi",
+        "classSession": "Morning",
+        "enrolledFor": "X",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "10th Evening",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "English",
+        "classSession": "Evening",
+        "enrolledFor": "X",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "10th Evening",
+        "category": "School Section",
+        "course": "Regular",
+        "year": "2017-18",
+        "stream": "Marathi",
+        "classSession": "Evening",
+        "enrolledFor": "X",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "10th Evening",
+        "category": "School Section",
+        "course": "Vacation",
+        "year": "2017-18",
+        "stream": "Marathi",
+        "classSession": "Evening",
+        "enrolledFor": "X",
+        "isDeleted": false,
+        "branch": "Chembur"
+    },
+    {
+        "name": "10th Evening",
+        "category": "School Section",
+        "course": "Vacation",
+        "year": "2017-18",
+        "stream": "Semi-English",
+        "classSession": "Evening",
+        "enrolledFor": "X",
+        "isDeleted": false,
+        "branch": "Chembur"
+    }
+]

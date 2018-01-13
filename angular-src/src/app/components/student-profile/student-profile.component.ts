@@ -27,6 +27,7 @@ export class StudentProfileComponent implements OnInit {
   index: number;
   balanceInstallmentAmount: number = 0;
   showAddInstallmentbtn: boolean = true;
+  expectedDateOfCompletion;
 
   constructor(
     private router: Router,
@@ -158,6 +159,10 @@ export class StudentProfileComponent implements OnInit {
     this.amount = inst.amount;
     this.paymentDate = inst.paymentDate;
     this.index = index;
+  }
+
+  admitToNextYear(){
+    console.log("Admit to Next Year");
   }
 
   //update this

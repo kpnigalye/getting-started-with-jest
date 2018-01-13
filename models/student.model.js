@@ -85,7 +85,7 @@ module.exports.updateStudentInfo = function (userToUpdate, callback) {
 module.exports.searchSchoolSectionStudents = function (params, callback) {
     console.log("model.searchSchoolSectionStudents - " + params);
     Student.find({
-        "stream": params.stream, "stream": params.stream,
+        "branch": params.branch, "stream": params.stream, "stream": params.stream,
         "currentStandard": params.enrolledFor, "category": params.category,
         "course": params.course, "classSession": params.classSession
     }
@@ -96,15 +96,15 @@ module.exports.searchCollegeSectionStudents = function (params, callback) {
     console.log("model.searchCollegeSectionStudents - " + params);
     if (params.entrance) {
         Student.find({
-            "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor, "category": params.category,
-            "course": params.course, "classSession": params.classSession, "entrance": params.entrance
+            "branch": params.branch, "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor,
+            "category": params.category, "course": params.course, "classSession": params.classSession, "entrance": params.entrance
         }
             , callback);
     }
     else {
         Student.find({
-            "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor, "category": params.category,
-            "course": params.course, "classSession": params.classSession
+            "branch": params.branch, "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor,
+            "category": params.category, "course": params.course, "classSession": params.classSession
         }
             , callback);
     }

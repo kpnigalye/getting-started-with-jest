@@ -127,6 +127,26 @@ export class StudentsListingComponent implements OnInit {
     });
   }
 
+  listCommerceStudents(enrolledFor, course, classSession, entrance?) {
+    console.log("from listCommerceStudents");
+
+    this.studentService.searchCollegeSectionStudents("College Section", "Commerce", enrolledFor, course, classSession, entrance).subscribe(studentsData => {
+      if (studentsData.success) {
+        this.commerceSectionData = studentsData.students;
+      }
+    });
+  }
+
+  listArtsStudents(enrolledFor, course, classSession, entrance?) {
+    console.log("from listArtsStudents");
+
+    this.studentService.searchCollegeSectionStudents("College Section", "Arts", enrolledFor, course, classSession, entrance).subscribe(studentsData => {
+      if (studentsData.success) {
+        this.listArtsStudents = studentsData.students;
+      }
+    });
+  }
+
   showCourses() {
     return (this.enrolledFor == "X" || this.enrolledFor == "XII");
   }

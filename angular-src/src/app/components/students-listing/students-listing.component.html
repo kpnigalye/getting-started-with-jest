@@ -171,7 +171,7 @@
   <div class="tab-pane fade" id="commerce">
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
-        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listStudents(batchBtn.category, batchBtn.stream, batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listCommerceStudents(batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
           {{batchBtn.name}}
         </button>
       </div>
@@ -213,7 +213,7 @@
   <div class="tab-pane fade" id="arts">
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12">
-        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listStudents(batchBtn.category, batchBtn.stream, batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listArtsStudents(batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
           {{batchBtn.name}}
         </button>
       </div>

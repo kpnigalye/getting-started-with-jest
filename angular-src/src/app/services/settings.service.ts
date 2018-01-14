@@ -23,11 +23,26 @@ export class SettingsService {
       .map(res => res.json());
   }
 
+  getBatchById(id){
+    let params: URLSearchParams  = new URLSearchParams();
+    params.set("id", id);
+
+    return this.http.get(environment.settingsUrl.concat('getBatchById'), { headers: this.setHeaders(), params: params })
+      .map(res => res.json());
+  }
+
   addBatch(batch) {
     batch.branch = localStorage.getItem('branch');
     console.log(batch);
 
     return this.http.post(environment.settingsUrl.concat('addBatch'), batch, { headers: this.setHeaders() })
+      .map(res => res.json());
+  }
+
+  editBatch(batchToUpdate) {
+    console.log(batchToUpdate);
+
+    return this.http.post(environment.settingsUrl.concat('editBatch'), batchToUpdate, { headers: this.setHeaders() })
       .map(res => res.json());
   }
 

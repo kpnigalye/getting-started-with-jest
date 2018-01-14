@@ -6,6 +6,14 @@ const jwt = require('jsonwebtoken');
 const AcademicYearModel = require('../models/academicyear.model');
 const BatchModel = require('../models/batch.model');
 
+// Get FeesDetail by Id
+router.get('/getBatchById', (req, res, next) => {
+    BatchModel.getBatchById(req.query.id, (err, batch) => {
+        if (err) throw err;
+        res.send({ success: true, batch: batch });
+    });
+});
+
 // Add New Batch
 router.post('/addBatch', (req, res, next) => {
 
@@ -16,6 +24,20 @@ router.post('/addBatch', (req, res, next) => {
             res.json({ success: false, msg: err });
         } else {
             res.json({ success: true, batch: batch, msg: 'Batch Added' });
+        }
+    });
+});
+
+// Edit Batch
+router.post('/editBatch', (req, res, next) => {
+
+    let batchToUpdate = new BatchModel(req.body);
+
+    BatchModel.editBatch(batchToUpdate, (err, batch) => {
+        if (err) {
+            res.json({ success: false, msg: err });
+        } else {
+            res.json({ success: true, batch: batch, msg: 'Batch Updated' });
         }
     });
 });

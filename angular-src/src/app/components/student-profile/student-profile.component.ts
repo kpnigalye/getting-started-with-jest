@@ -44,18 +44,31 @@ export class StudentProfileComponent implements OnInit {
     // get feesdetails
     // get payment history
     // get student details
-    this.getStudentDetails();
+    this.loadStudentInfo();
+  }
+
+  loadPaymentRecord(){
     this.getFeesDetailsHistory();
     this.getPaymentHistory();
   }
 
-  getStudentDetails() {
+  loadStudentInfo() {
     this.studentService.getStudentDetailsById(this.id).subscribe(studentData => {
       if (studentData.success) {
         this.student = studentData.student;
+        if(this.student.isCombinedAdmission)
+        this.student.isCombinedAdmission = false;
         console.log(this.student);
       }
     });
+  }
+
+  loadMarksRecord(){
+
+  }
+
+  loadAttendenceRecord(){
+    
   }
 
   getFeesDetailsHistory() {

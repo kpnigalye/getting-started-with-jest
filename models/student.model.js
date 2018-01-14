@@ -96,14 +96,14 @@ module.exports.searchCollegeSectionStudents = function (params, callback) {
     console.log("model.searchCollegeSectionStudents - " + params);
     if (params.entrance) {
         Student.find({
-            "branch": params.branch, "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor,
+            "branch": params.branch, "stream": params.stream, "stream": params.stream, "currentStandard": params.enrolledFor,
             "category": params.category, "course": params.course, "classSession": params.classSession, "entrance": params.entrance
         }
             , callback);
     }
     else {
         Student.find({
-            "branch": params.branch, "stream": params.stream, "stream": params.stream, "enrolledFor": params.enrolledFor,
+            "branch": params.branch, "stream": params.stream, "stream": params.stream, "currentStandard": params.enrolledFor,
             "category": params.category, "course": params.course, "classSession": params.classSession
         }
             , callback);

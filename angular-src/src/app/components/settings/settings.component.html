@@ -42,6 +42,7 @@
             <th scope="col">Category</th>
             <th scope="col">Stream</th>
             <th scope="col">Standard</th>
+            <th scope="col">Options</th>
           </tr>
         </thead>
         <tbody>
@@ -50,6 +51,9 @@
             <td>{{batch.category}}</td>
             <td>{{batch.stream}}</td>
             <td>{{batch.name}}/{{batch.stream}}</td>
+            <td>
+              <button type="button" class="btn-sm btn-secondary" [routerLink]="['/editbatch/'+ batch._id ]">Edit</button>
+            </td>
           </tr>
         </tbody>
       </table>

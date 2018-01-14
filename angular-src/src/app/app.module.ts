@@ -34,6 +34,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SortGridPipe } from '../app/pipes/SortGridPipe';
 import { SettingsService } from './services/settings.service';
+import { EditBatchComponent } from './components/edit-batch/edit-batch.component';
 
 const appRoutes: Routes = [
   { pathMatch: 'full', path: '', component: HomeComponent },
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
   { pathMatch: 'full', path: 'studentslisting', component: StudentsListingComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'userprofile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'addbatch', component: AddBatchComponent, canActivate: [AuthGuard] },
+  { pathMatch: 'full', path: 'editbatch/:id', component: EditBatchComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'addfaculty', component: AddFacultyComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'addacademicyear', component: AddAcademicYearComponent, canActivate: [AuthGuard] },
   { pathMatch: 'full', path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
@@ -76,7 +78,8 @@ const appRoutes: Routes = [
     AddBatchComponent,
     AddFacultyComponent,
     AddAcademicYearComponent,
-    SettingsComponent
+    SettingsComponent,
+    EditBatchComponent
   ],
   imports: [
     BrowserModule,

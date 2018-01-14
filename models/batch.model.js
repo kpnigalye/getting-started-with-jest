@@ -41,9 +41,19 @@ const BatchSchema = mongoose.Schema({
 
 const Batch = module.exports = mongoose.model('Batch', BatchSchema);
 
+module.exports.getBatchById = function (id, callback) {
+    console.log("model.getBatchById-" + id);
+    Batch.findById(id, callback);
+}
+
 module.exports.addBatch = function (newbatch, callback) {
     console.log("addBatch");
     newbatch.save(callback);
+}
+
+module.exports.editBatch = function (batchToUpdate, callback) {
+    console.log("editBatch");
+    Batch.findByIdAndUpdate(batchToUpdate._id, batchToUpdate, callback);
 }
 
 module.exports.listBatches = function (branch, year, callback) {

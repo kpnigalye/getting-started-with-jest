@@ -40,6 +40,15 @@ export class StudentService {
       .map(res => res.json());
   }
 
+  searchStudentByName(name){
+    let params: URLSearchParams = new URLSearchParams();
+    params.set("name", name);
+    params.set("branch", localStorage.getItem('branch'));
+
+    return this.http.get(environment.studentsUrl.concat('searchStudentByName'), { headers: this.setHeaders(), params: params })
+      .map(res => res.json());
+  }
+
   // Search School section Students By Parameters
   searchSchoolSectionStudents(category, stream, enrolledFor, course, classSession) {
     let params: URLSearchParams = new URLSearchParams();

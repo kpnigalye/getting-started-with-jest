@@ -35,6 +35,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { SortGridPipe } from '../app/pipes/SortGridPipe';
 import { SettingsService } from './services/settings.service';
 import { EditBatchComponent } from './components/edit-batch/edit-batch.component';
+import { SearchStudentComponent } from './components/search-student/search-student.component';
 
 const appRoutes: Routes = [
   { pathMatch: 'full', path: '', component: HomeComponent },
@@ -79,7 +80,8 @@ const appRoutes: Routes = [
     AddFacultyComponent,
     AddAcademicYearComponent,
     SettingsComponent,
-    EditBatchComponent
+    EditBatchComponent,
+    SearchStudentComponent
   ],
   imports: [
     BrowserModule,

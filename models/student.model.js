@@ -82,6 +82,12 @@ module.exports.updateStudentInfo = function (userToUpdate, callback) {
     Student.findByIdAndUpdate(userToUpdate._id, userToUpdate, { upsert: true }, callback);
 }
 
+module.exports.searchStudentByName = function (params, callback) {
+    console.log("model.searchStudentByName - " + params);
+    Student.find({ "branch": params.branch, 
+    "name": { "$regex": params.name, "$options": "i" }}, callback);
+}
+
 module.exports.searchSchoolSectionStudents = function (params, callback) {
     console.log("model.searchSchoolSectionStudents - " + params);
     Student.find({

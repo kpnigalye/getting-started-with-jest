@@ -1,4 +1,4 @@
 module.exports = {
-  database: 'mongodb://localhost:27017/edusoft',
+  database: 'mongodb://kpnigalye:Krishna87@ds251747.mlab.com:51747/edusoft',
   secret: 'yoursecret'
 }

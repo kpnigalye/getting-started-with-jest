@@ -31,7 +31,7 @@ const feesdetails = require('./routes/feesdetails.routes');
 const payments = require('./routes/payments.routes');
 
 // Port Number
-const port = 3000;
+const port = process.env.port || 8080;
 
 // CORS Middleware
 app.use(cors());

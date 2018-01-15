@@ -1,3 +1,46 @@
-<p>
-  navbar works!
-</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Students Classes</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarsExampleDefault"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="navbar-nav mr-auto navbar-left">
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="authService.loggedIn()" [routerLink]="['/dashboard']">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="authService.loggedIn()" [routerLink]="['/signup']">Add New Student</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="authService.loggedIn()" [routerLink]="['/studentslisting']">List Students</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav mr-auto navbar-right">
+        <li class="nav-item dropdown" *ngIf="authService.loggedIn()">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Settings</a>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
+            <a class="dropdown-item" *ngIf="authService.loggedIn()" [routerLink]="['/addbatch']">Add Batch</a>
+            <a class="dropdown-item" *ngIf="authService.loggedIn()" [routerLink]="['/addfaculty']">Add Faculty</a>
+            <a class="dropdown-item" *ngIf="authService.loggedIn()" [routerLink]="['/addacademicyear']">Add Academic Year</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" *ngIf="authService.loggedIn()" [routerLink]="['/settings']">Settings</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="authService.loggedIn()" [routerLink]="['/userprofile']">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="!authService.loggedIn()" [routerLink]="['/login']">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="authService.loggedIn()" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br/>

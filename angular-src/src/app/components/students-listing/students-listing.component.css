@@ -1,0 +1,9 @@
+.cust-btn{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.search-results{
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    background-color: #eeeeee;
+}

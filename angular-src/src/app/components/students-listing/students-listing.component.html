@@ -1,3 +1,296 @@
-<p>
-  students-listing works!
-</p>
+<div class="alert alert-dismissible alert-danger" role="alert" *ngIf="error">
+  {{error}}
+</div>
+
+<div class="row">
+  <div class="col-2">
+    <label class="col-form-label col-form-label-sm" for="inputSmall">Select Year</label>
+  </div>
+  <div class="col-10">
+    <select id="academicyear" class="custom-select" name="year" [(ngModel)]="year">
+      <option *ngFor="let year of academicYears" selected="{{year.isCurrentYear}}" value="{{year.year}}">{{year.year}}</option>
+    </select>
+  </div>
+</div>
+
+<br/>
+
+<ul class="nav nav-tabs">
+  <li class="nav-item" (click)="loadBatchButtons('English')">
+    <a class="nav-link active show" data-toggle="tab" href="#english">English Medium</a>
+  </li>
+  <li class="nav-item" (click)="loadBatchButtons('Marathi')">
+    <a class="nav-link" data-toggle="tab" href="#marathi">Marathi Medium</a>
+  </li>
+  <li class="nav-item" (click)="loadBatchButtons('Semi-English')">
+    <a class="nav-link" data-toggle="tab" href="#semienglish">Semi-English Medium</a>
+  </li>
+  <li class="nav-item" (click)="loadBatchButtons('Commerce')">
+    <a class="nav-link" data-toggle="tab" href="#commerce">Commerce</a>
+  </li>
+  <li class="nav-item" (click)="loadBatchButtons('Arts')">
+    <a class="nav-link" data-toggle="tab" href="#arts">Arts</a>
+  </li>
+  <li class="nav-item" (click)="loadBatchButtons('Science')">
+    <a class="nav-link" data-toggle="tab" href="#science">Science</a>
+  </li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active show" id="english">
+    <br/>
+
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listStudents(batchBtn.category, batchBtn.stream, batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
+      </div>
+    </div>
+
+    <br/>
+    <table class="table table-sm table-hover searchresults" *ngIf="englishMediumData">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr.No.</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Standard</th>
+          <th scope="col">Session</th>
+          <th scope="col">Contact Numbers</th>
+          <th scope="col">School Name</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of englishMediumData; let i = index" class="table-bordered">
+          <td>{{i+1}}</td>
+          <td>{{student.name}}
+            <br/> [ {{student.enrolledFor}} / {{student.course}} ]
+          </td>
+          <td>{{student.currentStandard}}</td>
+          <td>{{student.classSession}}</td>
+          <td>
+            <div *ngFor="let number of student.contactDetails">
+              {{ number }}
+            </div>
+          </td>
+          <td>{{student.instituteInfo.name}}</td>
+          <td>
+            <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student._id]">Profile</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="marathi">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listStudents(batchBtn.category, batchBtn.stream, batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
+      </div>
+    </div>
+    <br/>
+    <table class="table table-sm table-hover" *ngIf="marathiMediumData">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr.No.</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Standard</th>
+          <th scope="col">Session</th>
+          <th scope="col">Contact Numbers</th>
+          <th scope="col">School Name</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of marathiMediumData; let i = index" class="table-bordered">
+          <td>{{i+1}}</td>
+          <td>{{student.name}}
+            <br/> [ {{student.enrolledFor}} / {{student.course}} ]
+          </td>
+          <td>{{student.currentStandard}}</td>
+          <td>{{student.classSession}}</td>
+          <td>
+            <div *ngFor="let number of student.contactDetails">
+              {{ number }}
+            </div>
+          </td>
+          <td>{{student.instituteInfo.name}}</td>
+          <td>
+            <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student._id]">Profile</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="semienglish">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listStudents(batchBtn.category, batchBtn.stream, batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
+      </div>
+    </div>
+    <br/>
+    <table class="table table-sm table-hover" *ngIf="semienglishMediumData">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr.No.</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Standard</th>
+          <th scope="col">Session</th>
+          <th scope="col">Contact Numbers</th>
+          <th scope="col">School Name</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of semienglishMediumData; let i = index" class="table-bordered">
+          <td>{{i+1}}</td>
+          <td>{{student.name}}
+            <br/> [ {{student.enrolledFor}} / {{student.course}} ]
+          </td>
+          <td>{{student.currentStandard}}</td>
+          <td>{{student.classSession}}</td>
+          <td>
+            <div *ngFor="let number of student.contactDetails">
+              {{ number }}
+            </div>
+          </td>
+          <td>{{student.instituteInfo.name}}</td>
+          <td>
+            <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student._id]">Profile</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="commerce">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listCommerceStudents(batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
+      </div>
+    </div>
+    <br/>
+    <table class="table table-sm table-hover" *ngIf="commerceSectionData">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr.No.</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Standard</th>
+          <th scope="col">Session</th>
+          <th scope="col">Contact Numbers</th>
+          <th scope="col">School Name</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of commerceSectionData; let i = index" class="table-bordered">
+          <td>{{i+1}}</td>
+          <td>{{student.name}}
+            <br/> [ {{student.enrolledFor}} / {{student.course}} ]
+          </td>
+          <td>{{student.currentStandard}}</td>
+          <td>{{student.classSession}}</td>
+          <td>
+            <div *ngFor="let number of student.contactDetails">
+              {{ number }}
+            </div>
+          </td>
+          <td>{{student.instituteInfo.name}}</td>
+          <td>
+            <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student._id]">Profile</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="arts">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listArtsStudents(batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession)">
+          {{batchBtn.name}}
+        </button>
+      </div>
+    </div>
+    <br/>
+    <table class="table table-sm table-hover" *ngIf="artsSectionData">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr.No.</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Standard</th>
+          <th scope="col">Session</th>
+          <th scope="col">Contact Numbers</th>
+          <th scope="col">School Name</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of artsSectionData; let i = index" class="table-bordered">
+          <td>{{i+1}}</td>
+          <td>{{student.name}}
+            <br/> [ {{student.enrolledFor}} / {{student.course}} ]
+          </td>
+          <td>{{student.currentStandard}}</td>
+          <td>{{student.classSession}}</td>
+          <td>
+            <div *ngFor="let number of student.contactDetails">
+              {{ number }}
+            </div>
+          </td>
+          <td>{{student.instituteInfo.name}}</td>
+          <td>
+            <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student._id]">Profile</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="science">
+
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <button type="button" *ngFor="let batchBtn of batchesByTab" class="btn btn-primary cust-btn" (click)="listScienceStudents(batchBtn.enrolledFor, batchBtn.course, batchBtn.classSession, batchBtn.entrance)">
+          {{batchBtn.name}}
+        </button>
+      </div>
+    </div>
+    <br/>
+    <table class="table table-sm table-hover searchresults" *ngIf="scienceSectionData">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sr.No.</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Standard</th>
+          <th scope="col">Session</th>
+          <th scope="col">Contact Numbers</th>
+          <th scope="col">School Name</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of scienceSectionData; let i = index" class="table-bordered">
+          <td>{{i+1}}</td>
+          <td>{{student.name}}
+            <br/> [ {{student.enrolledFor}} / {{student.course}} ]
+          </td>
+          <td>{{student.currentStandard}}</td>
+          <td>{{student.classSession}}</td>
+          <td>
+            <div *ngFor="let number of student.contactDetails">
+              {{ number }}
+            </div>
+          </td>
+          <td>{{student.instituteInfo.name}}</td>
+          <td>
+            <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student._id]">Profile</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

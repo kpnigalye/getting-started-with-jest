@@ -1,0 +1,61 @@
+<div class="alert alert-dismissible alert-danger" role="alert" *ngIf="error">
+  {{error}}
+</div>
+
+<div class="card" *ngIf="academicYears">
+  <div class="card-header">
+    Academic Years
+  </div>
+  <div class="card-body">
+    <table class="table table-sm table-hover" *ngIf="academicYears">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Year</th>
+          <th scope="col">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let year of academicYears;let i = index" class="table-bordered">
+          <td>{{i+1}}</td>
+          <td>{{year.year}}</td>
+          <td>
+            <button type="button" class="btn btn-secondary" *ngIf="!year.isCurrentYear" (click)="SetCurrentYear(i)">Set Current Year</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br/>
+
+<div class="card" *ngIf="academicYears">
+    <div class="card-header">
+      Batches
+    </div>
+    <div class="card-body">
+      <table class="table table-sm table-hover" *ngIf="batches">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Category</th>
+            <th scope="col">Stream</th>
+            <th scope="col">Standard</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let batch of batches;let i = index" class="table-bordered">
+            <td>{{i+1}}</td>
+            <td>{{batch.category}}</td>
+            <td>{{batch.stream}}</td>
+            <td>{{batch.name}}/{{batch.stream}}</td>
+            <td>
+              <button type="button" class="btn-sm btn-secondary" [routerLink]="['/editbatch/'+ batch._id ]">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

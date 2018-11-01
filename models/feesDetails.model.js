@@ -7,7 +7,7 @@ const FeesDetailSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    idPaid: Boolean,
+    isPaid: Boolean,
     totalFees: {
         type: Number,
         required: true

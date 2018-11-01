@@ -13,6 +13,7 @@ export class PaymentService {
     private http: Http
   ) { }
 
+  // Dashboard - Balance Fees
   showBalanceFeesOnDashboard(){
     let params: URLSearchParams = new URLSearchParams();
     params.set("isPaid", "false");
@@ -22,6 +23,7 @@ export class PaymentService {
       .map(res => res.json());
   }
 
+  // Dashboard - Pending cheques
   showPendingChequeEntries(){
     let params: URLSearchParams = new URLSearchParams();
     params.set("isChequeCleared", "false");

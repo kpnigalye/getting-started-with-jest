@@ -33,9 +33,9 @@
         <li class="nav-item">
           <a class="nav-link" *ngIf="authService.loggedIn()" [routerLink]="['/userprofile']">Profile</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" *ngIf="!authService.loggedIn()" [routerLink]="['/login']">Login</a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" *ngIf="authService.loggedIn()" (click)="logout()">Logout</a>
         </li>

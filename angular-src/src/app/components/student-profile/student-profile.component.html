@@ -97,15 +97,11 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
                 <!-- total fees to pay -->
-                <strong>Total Fees:</strong>Rs. {{ fees.totalFeesToPay }}</li>
+                <strong>Course Fee:</strong>Rs. {{ fees.totalFeesToPay }}</li>
               <li class="list-group-item">
                 <strong>Concession: </strong>Rs. {{ fees.concession }}</li>
               <li class="list-group-item">
                 <strong>Total Paid Fees:</strong>Rs. {{ fees.totalPaidFees }}</li>
-              <li class="list-group-item">
-                <strong>Balance Installment Amount:
-                  <br>
-                </strong>Rs. {{ balanceInstallmentAmount }}</li>
               <li class="list-group-item">
                 <strong>Expected Date of Completion: </strong>
                 <br /> {{ fees.expectedDateOfCompletion | date:'dd-MM-yyyy' }}</li>
@@ -113,7 +109,7 @@
           </div>
 
           <div class="card-footer">
-            <h4 *ngIf="!fees.isPaid" style="color:red">Balance Fees:
+            <h4 *ngIf="!fees.isPaid" style="color:red">Balance Fees: <br/>
               <strong> Rs. {{ fees.totalFees - fees.totalPaidFees - fees.concession }}</strong>
             </h4>
             <h3 *ngIf="fees.isPaid" style="color:green">Full Paid</h3>
@@ -125,7 +121,7 @@
       <div class="col-sm-12 col-md-12 col-lg-8">
         <div class="card">
           <div class="card-header">
-            <h5>Fees Details</h5>
+            <h5>Fees Details <strong style="color:#FFEB3B" *ngIf="balanceInstallmentAmount">(Balance Installment: Rs. {{ balanceInstallmentAmount }})</strong></h5> 
           </div>
           <div class="card-block">
             <table class="table table-hover" *ngIf="paymentHistory">

@@ -76,6 +76,7 @@ export class StudentProfileComponent implements OnInit {
       if (feesData.success) {
         console.log("getting feesData");
         this.fees = feesData.feesDetails;
+        console.log(feesData.feesDetails);
         this.checkBalanceInstallmentAmount();
       }
     });
@@ -93,6 +94,7 @@ export class StudentProfileComponent implements OnInit {
   checkBalanceInstallmentAmount() {
     this.balanceInstallmentAmount = Number(this.fees.totalFeesToPay) - Number(this.fees.totalInstallmentAmount);
     this.showAddInstallmentbtn = this.balanceInstallmentAmount == 0 ? false : true;
+    this.fees.isPaid = this.fees.isPaid;
   }
 
 
@@ -156,6 +158,12 @@ export class StudentProfileComponent implements OnInit {
           });
         }
       });
+    }
+    else{
+      alert("Please check the balance installment amount.");
+      this.amount = "";
+      this.paymentDate = "";
+      $("#exampleModal").modal('hide');
     }
   }
 

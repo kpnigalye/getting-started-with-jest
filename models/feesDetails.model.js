@@ -44,7 +44,7 @@ module.exports.addNewFeesDetails = function (newFeesDetail, callback) {
 }
 
 module.exports.updateFeesDetails = function (feesDetailToUpdate, callback) {
-    console.log("updateFeesDetails: from model")
-    FeesDetail.findByIdAndUpdate(feesDetailToUpdate._id, feesDetailToUpdate, { upsert: true }, callback);
+    console.log("updateFeesDetails: from model");
+    FeesDetail.findByIdAndUpdate(feesDetailToUpdate._id, feesDetailToUpdate, callback);
 }
 

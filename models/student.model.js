@@ -79,7 +79,7 @@ module.exports.addNewStudent = function (newStudent, callback) {
 
 module.exports.updateStudentInfo = function (userToUpdate, callback) {
     console.log("model.updateStudentInfo - " + userToUpdate._id);
-    Student.findByIdAndUpdate(userToUpdate._id, userToUpdate, { upsert: true }, callback);
+    Student.findByIdAndUpdate(userToUpdate._id, userToUpdate, callback);
 }
 
 module.exports.searchStudentByName = function (params, callback) {

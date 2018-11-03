@@ -26,6 +26,7 @@ router.post('/authenticate', (req, res, next) => {
   const password = req.body.password;
 
   UserModel.getUserByEmail(email, (err, user) => {
+    console.log("user: "+ user);
     if (err) throw err;
     if (!user) {
       return res.json({
@@ -37,10 +38,13 @@ router.post('/authenticate', (req, res, next) => {
     UserModel.comparePassword(password, user.password, (err, isMatch) => {
       if (err) throw err;
 
+      console.log("isMatch: "+ isMatch);
+
       if (isMatch) {
         const token = jwt.sign(user.toJSON(), config.secret, {
           expiresIn: 86400 // 1 day
         });
+        console.log("token: "+ token);
 
         res.json({
           success: true,

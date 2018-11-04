@@ -5,9 +5,9 @@
 
 export const environment = {
   production: false,
-  usersUrl: "http://localhost:3000/users/",
-  feesDetailsUrl: "http://localhost:3000/feesdetails/",
-  paymentsUrl: "http://localhost:3000/payments/",
-  studentsUrl: "http://localhost:3000/students/",
-  settingsUrl: "http://localhost:3000/settings/"
+  usersUrl: "/users/",
+  feesDetailsUrl: "/feesdetails/",
+  paymentsUrl: "/payments/",
+  studentsUrl: "/students/",
+  settingsUrl: "/settings/"
 };

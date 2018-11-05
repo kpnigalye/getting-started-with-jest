@@ -21,8 +21,7 @@ export class StudentProfileComponent implements OnInit {
   paymentHistory: any;
   amount: any;
   paymentDate: any;
-  addState: boolean = false;
-  editState: boolean = false;
+  state: boolean = false;
   itemToEdit: any;
   index: number;
   balanceInstallmentAmount: number = 0;
@@ -45,6 +44,7 @@ export class StudentProfileComponent implements OnInit {
     // get payment history
     // get student details
     this.loadStudentInfo();
+    this.loadPaymentRecord();
   }
 
   loadPaymentRecord(){
@@ -113,7 +113,6 @@ export class StudentProfileComponent implements OnInit {
   // Code to Add installment
   ////////////////////////////
   addInstallment() {
-    this.addState = true;
     console.log("from addNewInstallment");
 
     let newTotalInstallmentAmount = this.findTotalInstallmentAmount() + Number(this.amount);
@@ -136,6 +135,7 @@ export class StudentProfileComponent implements OnInit {
             receiptNumber: 0,
             isPaid: false,
             paymentDate: this.paymentDate,
+            paymentMonthNo: new Date(this.paymentDate).getMonth(),
             amount: this.amount,
             modeOfPayment: "",
             bankName: "",
@@ -167,23 +167,22 @@ export class StudentProfileComponent implements OnInit {
     }
   }
 
-  changeAddState() {
-    this.addState = true;
+  changeToAddState() {
+    this.state = true;
+    this.amount = "";
+    this.paymentDate = "";
   }
 
   ////////////////////////////
   // Code to edit installment
   ////////////////////////////
   changeEditState(inst, index) {
+    console.log("changeEditState");
     this.itemToEdit = inst;
-    this.editState = true;
+    this.state = false;
     this.amount = inst.amount;
     this.paymentDate = inst.paymentDate;
     this.index = index;
-  }
-
-  admitToNextYear(){
-    console.log("Admit to Next Year");
   }
 
   //update this
@@ -198,6 +197,7 @@ export class StudentProfileComponent implements OnInit {
           
         this.paymentHistory[this.index].amount = this.amount;
         this.paymentHistory[this.index].paymentDate = this.paymentDate;
+        this.paymentHistory[this.index].paymentMonthNo = new Date(this.paymentDate).getMonth();
         this.paymentService.updatePaymentDetails(this.paymentHistory[this.index]).subscribe(paymentData => {
           if(paymentData.success){
             this.getPaymentHistory();
@@ -207,7 +207,6 @@ export class StudentProfileComponent implements OnInit {
             this.checkBalanceInstallmentAmount();
           }
         });
-
         }
       });
     }

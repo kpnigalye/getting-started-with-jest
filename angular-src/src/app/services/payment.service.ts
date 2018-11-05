@@ -15,9 +15,12 @@ export class PaymentService {
 
   // Dashboard - Balance Fees
   showBalanceFeesOnDashboard(){
+    let monthNo= new Date().getMonth();
+
     let params: URLSearchParams = new URLSearchParams();
     params.set("isPaid", "false");
     params.set("branch", localStorage.getItem('branch'));
+    params.set("paymentMonthNo", monthNo.toString());
 
     return this.http.get(environment.paymentsUrl.concat('showBalanceFeesOnDashboard'), { headers: this.setHeaders(), params : params })
       .map(res => res.json());

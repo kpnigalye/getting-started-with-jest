@@ -28,6 +28,7 @@ const PaymentSchema = mongoose.Schema({
     amount: Number,
     receiptNumber: Number,
     paymentDate: String,
+    paymentMonthNo: Number,
     modeOfPayment: String,
     bankName: String,
     BankBranch: String,
@@ -42,9 +43,9 @@ const PaymentSchema = mongoose.Schema({
 
 const Payment = module.exports = mongoose.model('Payment', PaymentSchema);
 
-module.exports.showBalanceFeesOnDashboard = function (isPaid, branch, callback) {
+module.exports.showBalanceFeesOnDashboard = function (isPaid, branch, paymentMonthNo, callback) {
     console.log("model.showBalanceFeesOnDashboard");
-    Payment.find({ isPaid: isPaid, branch: branch }, callback);
+    Payment.find({ isPaid: isPaid, branch: branch, paymentMonthNo : paymentMonthNo }, callback);
 }
 
 module.exports.showPendingChequeEntries = function (isChequeCleared, branch, callback) {

@@ -10,7 +10,9 @@ const PaymentModel = require('../models/payment.model');
 router.get('/showBalanceFeesOnDashboard', (req, res, next) => {
   let isPaid = req.query.isPaid;
   let branch = req.query.branch;
-  PaymentModel.showBalanceFeesOnDashboard(isPaid, branch, (err, balanceFees) => {
+  let paymentMonthNo = req.query.paymentMonthNo;
+  
+  PaymentModel.showBalanceFeesOnDashboard(isPaid, branch, paymentMonthNo, (err, balanceFees) => {
     if (err) throw err;
     res.send({ success: true, balanceFees: balanceFees });
   });

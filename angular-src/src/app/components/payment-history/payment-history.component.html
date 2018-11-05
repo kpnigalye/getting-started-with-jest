@@ -37,7 +37,7 @@
             <br/>
             <strong>Cheque Dated: </strong> {{ paymentInfo.chequeDate | date:'dd-MM-yyyy' }}
             <br/>
-            <strong *ngIf="paymentInfo.isChequeCleared">Cheque Clearance Date: </strong> {{ paymentInfo.chequeClearanceDate }}
+            <strong *ngIf="paymentInfo.isChequeCleared">Cheque Clearance Date: </strong> {{ paymentInfo.chequeClearanceDate | date:'dd-MM-yyyy' }}
           </li>
           <li class="list-group-item">
             <strong>Remark:</strong> {{ paymentInfo.remark }}

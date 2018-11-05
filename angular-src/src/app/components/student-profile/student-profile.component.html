@@ -18,22 +18,22 @@
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="nav-item" (click)="loadStudentInfo()">
-    <a class="nav-link active show" data-toggle="tab" href="#studentinfo">Student Information</a>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#studentinfo">Student Information</a>
   </li>
-  <li class="nav-item" (click)="loadPaymentRecord()">
-    <a class="nav-link" data-toggle="tab" href="#payment">Payment Record</a>
+  <li class="nav-item">
+    <a class="nav-link active show" data-toggle="tab" href="#payment">Payment Record</a>
   </li>
-  <li class="nav-item" (click)="loadMarksRecord()">
+  <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#marks">Marks Record</a>
   </li>
-  <li class="nav-item" (click)="loadAttendenceRecord()">
+  <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#attendence">Attendence</a>
   </li>
 </ul>
 
 <div id="myTabContent" class="tab-content">
-  <div class="tab-pane fade active show" id="studentinfo" *ngIf="student">
+  <div class="tab-pane fade" id="studentinfo" *ngIf="student">
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-4">
         <div class="card">
@@ -86,8 +86,9 @@
       </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="payment">
-    <div class="row" *ngIf="student && fees">
+
+  <div class="tab-pane fade active show" id="payment" *ngIf="fees">
+    <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-4">
         <div class="card">
           <div class="card-header">
@@ -114,7 +115,7 @@
             </h4>
             <h3 *ngIf="fees.isPaid" style="color:green">Full Paid</h3>
             <button type="button" data-toggle="modal" data-target="#exampleModal" *ngIf="showAddInstallmentbtn" class="btn btn-info"
-              (click)="changeAddState()">Add Installment</button>
+              (click)="changeToAddState()">Add Installment</button>
           </div>
         </div>
       </div>
@@ -156,11 +157,11 @@
       </div>
     </div>
   </div>
+
   <div class="tab-pane fade" id="marks">
-
   </div>
-  <div class="tab-pane fade" id="attendence">
 
+  <div class="tab-pane fade" id="attendence">
   </div>
 </div>
 
@@ -171,15 +172,15 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" *ngIf="addState">Add Installment</h5>
-        <h5 class="modal-title" id="exampleModalLabel" *ngIf="editState">Edit Installment</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="state">Add Installment</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="!state">Edit Installment</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <!-- Form to add/edit installment -->
-        <form *ngIf="addState || editState">
+        <form>
           <div class="form-row">
             <div class="col-12">
               <label for="installment-amt" class="col-form-label">Amount:</label>
@@ -194,8 +195,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" *ngIf="addState" (click)="addInstallment()">Add Installment</button>
-        <button type="button" class="btn btn-primary" *ngIf="editState" (click)="updateInstallmentDetails()">Save changes</button>
+        <button type="button" class="btn btn-primary" *ngIf="state" (click)="addInstallment()">Add Installment</button>
+        <button type="button" class="btn btn-primary" *ngIf="!state" (click)="updateInstallmentDetails()">Save changes</button>
       </div>
     </div>
   </div>

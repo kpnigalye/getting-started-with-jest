@@ -81,6 +81,7 @@ export class AddPaymentComponent implements OnInit {
         this.paymentRecord.isPaid = true;
         this.paymentRecord.amount = this.amount;
         this.paymentRecord.paymentDate = this.paymentDate;
+        this.paymentRecord.paymentMonthNo = new Date(this.paymentDate).getMonth(),    // Jan = 0
         this.paymentRecord.receiptNumber = this.receiptNumber;
         this.paymentRecord.modeOfPayment = this.modeOfPayment;
         this.paymentRecord.remark = this.remark;

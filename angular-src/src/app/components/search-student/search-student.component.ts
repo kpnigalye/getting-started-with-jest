@@ -21,6 +21,7 @@ export class SearchStudentComponent implements OnInit {
   }
 
   searchStudent() {
+    if(this.name){
     this.studentService.searchStudentByName(this.name).subscribe(data => {
       if (data.success) {
         this.searchResults = data.students;
@@ -29,6 +30,11 @@ export class SearchStudentComponent implements OnInit {
       }
     });
   }
+  else{
+    alert("Please enter name to search");
+  }
+}
+
 
   hideSearchResults() {
     this.searchResults = "";

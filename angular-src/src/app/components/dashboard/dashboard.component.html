@@ -1,38 +1,190 @@
 <app-search-student></app-search-student>
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="pendingChq-tab" data-toggle="tab" href="#pendingChq" role="tab" aria-controls="pendingChq"
-      aria-selected="false">
-      PDC
-      <span class="badge badge-pill badge-info" *ngIf="pendingChequeNotifications">{{pendingChequeNotifications}}</span>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-      Science
-      <span class="badge badge-pill badge-info" *ngIf="sciecneNotifications">{{sciecneNotifications}}</span>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="arts-tab" data-toggle="tab" href="#arts" role="tab" aria-controls="home" aria-selected="true">
-      Arts
-      <span class="badge badge-pill badge-info" *ngIf="artsNotifications">{{artsNotifications}}</span>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="krishna-tab" data-toggle="tab" href="#krishna" role="tab" aria-controls="profile" aria-selected="false">
-      Krishna
-      <span class="badge badge-pill badge-info" *ngIf="krishnaNotifications">{{krishnaNotifications}}</span>
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="coaching-tab" data-toggle="tab" href="#coaching" role="tab" aria-controls="coaching" aria-selected="false">
-      Coaching
-      <span class="badge badge-pill badge-info" *ngIf="coachingNotifications">{{coachingNotifications}}</span>
-    </a>
-  </li>
-</ul>
+<div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          PDC <span class="badge badge-pill badge-info" *ngIf="pendingChequeNotifications">{{pendingChequeNotifications}}</span>
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <table class="table table-sm table-hover" *ngIf="pendingChequeEntries">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Student Name</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Receipt Dated</th>
+              <th scope="col">Cheque Dated</th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let entry of pendingChequeEntries | sortgrid : 'chequeDate'" class="table-bordered">
+              <td>{{entry.studentName}}
+                <br/> [ {{entry.enrolledFor}} / {{entry.stream}} ]
+              </td>
+              <td>Rs. {{entry.amount}}</td>
+              <td>{{entry.paymentDate | date:'dd-MM-yyyy'}}</td>
+              <td>{{entry.chequeDate | date:'dd-MM-yyyy'}}</td>
+              <td>
+                <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ entry.studentId]">Profile</button>
+                <button class="btn-sm btn-primary" (click)="changeEditState(entry)">Mark as Cleard</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Science <span class="badge badge-pill badge-info" *ngIf="sciecneNotifications">{{sciecneNotifications}}</span>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <table class="table table-sm table-hover" *ngIf="sciecneStudents">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Standard</th>
+              <th scope="col">Amount Due</th>
+              <th scope="col">Due date</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of sciecneStudents | sortgrid : 'paymentDate'" class="table-bordered">
+              <td>{{student.studentName}}</td>
+              <td>{{student.enrolledFor}} / {{student.stream}}</td>
+              <td>Rs. {{student.amount}}</td>
+              <td>{{student.paymentDate | date:'dd-MM-yyyy'}}</td>
+              <td>
+                <button class="btn-sm btn-info" class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student.studentId]">Profile</button>
+                <button class="btn-sm btn-primary" [routerLink]="['/addPayment/'+ student._id]">Make Payment</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Krishna <span class="badge badge-pill badge-info" *ngIf="krishnaNotifications">{{krishnaNotifications}}</span>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+        <table class="table table-sm table-hover" *ngIf="krishnaStudents">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Standard</th>
+              <th scope="col">Amount Due</th>
+              <th scope="col">Due date</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of krishnaStudents | sortgrid : 'paymentDate'" class="table-bordered">
+              <td>{{student.studentName}}</td>
+              <td>{{student.enrolledFor}} / {{student.stream}}</td>
+              <td>Rs. {{student.amount}}</td>
+              <td>{{student.paymentDate | date:'dd-MM-yyyy'}}</td>
+              <td>
+                <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student.studentId]">Profile</button>
+                <button class="btn-sm btn-primary" [routerLink]="['/addPayment/'+ student._id]">Make Payment</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingFour">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          Coaching <span class="badge badge-pill badge-info" *ngIf="coachingNotifications">{{coachingNotifications}}</span>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+      <div class="card-body">
+        <table class="table table-sm table-hover" *ngIf="coachingStudents">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Standard</th>
+              <th scope="col">Amount Due</th>
+              <th scope="col">Due date</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of coachingStudents | sortgrid : 'paymentDate'" class="table-bordered">
+              <td>{{student.studentName}}</td>
+              <td>{{student.enrolledFor}} / {{student.stream}}</td>
+              <td>Rs. {{student.amount}}</td>
+              <td>{{student.paymentDate | date:'dd-MM-yyyy'}}</td>
+              <td>
+                <button class="btn-sm btn-primary" [routerLink]="['/studentprofile/'+ student.studentId]">Profile</button>
+                <button class="btn-sm btn-primary" [routerLink]="['/addPayment/'+ student._id]">Make Payment</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingFive">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          Arts <span class="badge badge-pill badge-info" *ngIf="artsNotifications">{{artsNotifications}}</span>
+        </button>
+      </h5>
+    </div>
+    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+      <div class="card-body">
+        <table class="table table-sm table-hover" *ngIf="artsStudents">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Standard</th>
+              <th scope="col">Amount Due</th>
+              <th scope="col">Due date</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of artsStudents | sortgrid : 'paymentDate'" class="table-bordered">
+              <td>{{student.studentName}}</td>
+              <td>{{student.enrolledFor}} / {{student.stream}}</td>
+              <td>Rs. {{student.amount}}</td>
+              <td>{{student.paymentDate | date:'dd-MM-yyyy'}}</td>
+              <td>
+                <button class="btn-sm btn-primary" [routerLink]="['/studentprofile/'+ student.studentId]">Profile</button>
+                <button class="btn-sm btn-primary" [routerLink]="['/addPayment/'+ student._id]">Make Payment</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -66,132 +218,5 @@
         <button type="button" class="btn btn-primary" (click)="markChequeAsCleared()">Save</button>
       </div>
     </div>
-  </div>
-</div>
-
-
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="pendingChq" role="tabpanel" aria-labelledby="pendingChq-tab">
-    <table class="table table-sm table-hover" *ngIf="pendingChequeEntries">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Student Name</th>
-          <th scope="col">Amount</th>
-          <th scope="col">Receipt Dated</th>
-          <th scope="col">Cheque Dated</th>
-          <th scope="col">Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let entry of pendingChequeEntries | sortgrid : 'chequeDate'" class="table-bordered">
-          <td>{{entry.studentName}}
-            <br/> [ {{entry.enrolledFor}} / {{entry.stream}} ]
-          </td>
-          <td>Rs. {{entry.amount}}</td>
-          <td>{{entry.paymentDate | date:'dd-MM-yyyy'}}</td>
-          <td>{{entry.chequeDate | date:'dd-MM-yyyy'}}</td>
-          <td>
-            <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ entry.studentId]">Profile</button>
-            <button class="btn-sm btn-primary" (click)="changeEditState(entry)">Mark as Cleard</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-    <br/>
-    <table class="table table-sm table-hover" *ngIf="sciecneStudents">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Amount Due</th>
-          <th scope="col">Due date</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of sciecneStudents | sortgrid : 'paymentDate'" class="table-bordered">
-          <td>{{student.studentName}}</td>
-          <td>Rs. {{student.amount}}</td>
-          <td>{{student.paymentDate | date:'dd-MM-yyyy'}}</td>
-          <td>
-            <button class="btn-sm btn-info" class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student.studentId]">Profile</button>
-            <button class="btn-sm btn-primary" [routerLink]="['/addPayment/'+ student._id]">Make Payment</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="tab-pane fade" id="arts" role="tabpanel" aria-labelledby="arts-tab">
-    <br/>
-    <table class="table table-sm table-hover" *ngIf="artsStudents">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Amount Due</th>
-          <th scope="col">Due date</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of artsStudents | sortgrid : 'paymentDate'" class="table-bordered">
-          <td>{{student.studentName}}</td>
-          <td>Rs. {{student.amount}}</td>
-          <td>{{student.paymentDate | date:'dd-MM-yyyy'}}</td>
-          <td>
-            <button class="btn-sm btn-primary" [routerLink]="['/studentprofile/'+ student.studentId]">Profile</button>
-            <button class="btn-sm btn-primary" [routerLink]="['/addPayment/'+ student._id]">Make Payment</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="tab-pane fade" id="krishna" role="tabpanel" aria-labelledby="krishna-tab">
-    <br/>
-    <table class="table table-sm table-hover" *ngIf="krishnaStudents">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Amount Due</th>
-          <th scope="col">Due date</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of krishnaStudents | sortgrid : 'paymentDate'" class="table-bordered">
-          <td>{{student.studentName}}</td>
-          <td>Rs. {{student.amount}}</td>
-          <td>{{student.paymentDate | date:'dd-MM-yyyy'}}</td>
-          <td>
-            <button class="btn-sm btn-info" [routerLink]="['/studentprofile/'+ student.studentId]">Profile</button>
-            <button class="btn-sm btn-primary" [routerLink]="['/addPayment/'+ student._id]">Make Payment</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="tab-pane fade" id="coaching" role="tabpanel" aria-labelledby="coaching-tab">
-    <br/>
-    <table class="table table-sm table-hover" *ngIf="coachingStudents">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Amount Due</th>
-          <th scope="col">Due date</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of coachingStudents | sortgrid : 'paymentDate'" class="table-bordered">
-          <td>{{student.studentName}}</td>
-          <td>Rs. {{student.amount}}</td>
-          <td>{{student.paymentDate | date:'dd-MM-yyyy'}}</td>
-          <td>
-            <button class="btn-sm btn-primary" [routerLink]="['/studentprofile/'+ student.studentId]">Profile</button>
-            <button class="btn-sm btn-primary" [routerLink]="['/addPayment/'+ student._id]">Make Payment</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </div>

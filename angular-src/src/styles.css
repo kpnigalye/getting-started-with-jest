@@ -1925,7 +1925,7 @@
  .table {
      width: 100%;
      max-width: 100%;
-     margin-bottom: 1rem;
+     /* margin-bottom: 1rem; */
      background-color: transparent
  }
  
@@ -3284,13 +3284,12 @@
  
  .btn-link {
      font-weight: 400;
-     color: #008cba;
+     color: #ffe500;
      background-color: transparent
  }
  
  .btn-link:hover {
-     color: #00526e;
-     text-decoration: underline;
+     color: #f8f9fc;
      background-color: transparent;
      border-color: transparent
  }
@@ -4697,9 +4696,9 @@
  }
  
  .card-header {
-     padding: 0.75rem 1.25rem;
+     padding: 0.4rem;
      margin-bottom: 0;
-     background-color: rgb(0, 140, 186);
+     background-color: #085d78;
      color: white;
      border-bottom: 1px solid rgba(0, 0, 0, 0.125)
  }

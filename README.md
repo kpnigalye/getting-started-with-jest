@@ -1,2 +1,2 @@
-# getting-started-with-jest
-sample application using jest
+# getting-started-with-react-testing
+
